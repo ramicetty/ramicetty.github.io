@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on pallavi</title>
+    <link>https://pallaviramicetty.github.io/blog/</link>
+    <description>Recent content in Blogs on pallavi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Pallavi Ramicetty - All rights reserved</copyright>
+    <lastBuildDate>Thu, 16 Jan 2020 09:17:14 +0200</lastBuildDate>
+    
+	<atom:link href="https://pallaviramicetty.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How To Speak by Patrick Winston</title>
+      <link>https://pallaviramicetty.github.io/blog/how-to-speak-by-patrick-winston/</link>
+      <pubDate>Thu, 16 Jan 2020 09:17:14 +0200</pubDate>
+      
+      <guid>https://pallaviramicetty.github.io/blog/how-to-speak-by-patrick-winston/</guid>
+      <description>Patrick Winston :: He was AI professor at MIT. He had been sharing his own style and heuristics on topic How To Speak to MIT students every year.</description>
+    </item>
+    
+  </channel>
+</rss>
