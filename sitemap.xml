@@ -3,8 +3,53 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://pallaviramicetty.github.io/tags/bigdata/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/tags/bigtable/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pallaviramicetty.github.io/blog/</loc>
-    <lastmod>2020-01-16T09:17:14+02:00</lastmod>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/tags/cloud-monitoring/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/tags/dataproc/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/tags/gcp-monitoring/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/tags/google-cloud/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/blog/next-blog/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pallaviramicetty.github.io/tags/</loc>
+    <lastmod>2020-06-27T06:49:05+05:30</lastmod>
   </url>
   
   <url>
@@ -13,17 +58,7 @@
   </url>
   
   <url>
-    <loc>https://pallaviramicetty.github.io/</loc>
-    <lastmod>2020-01-16T09:17:14+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://pallaviramicetty.github.io/tags/presentation-skills/</loc>
-    <lastmod>2020-01-16T09:17:14+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pallaviramicetty.github.io/tags/</loc>
     <lastmod>2020-01-16T09:17:14+02:00</lastmod>
   </url>
   
