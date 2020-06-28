@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.62.0" />
+	
+	<title>Device Based Models With Tensorflow Lite | pallavi</title>
+	
+	
+
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Device Based Models With Tensorflow Lite"/>
+<meta name="twitter:description" content="We&#39;ve seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there&#39;s
+something magical to getting these algorithms. Maybe a model that we&#39;ve trained to run in your hand, on
+our smartphone or on a lightweight embedded processor like, an Arduino Raspberry Pi. TensorFlow Lite, an
+exciting technology that allows us to put our models directly and literally into people&#39;s hands."/>
+
+	<meta property="og:title" content="Device Based Models With Tensorflow Lite" />
+<meta property="og:description" content="We&#39;ve seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there&#39;s
+something magical to getting these algorithms. Maybe a model that we&#39;ve trained to run in your hand, on
+our smartphone or on a lightweight embedded processor like, an Arduino Raspberry Pi. TensorFlow Lite, an
+exciting technology that allows us to put our models directly and literally into people&#39;s hands." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pallaviramicetty.github.io/blog/device-based-models-with-tensorflow-lite/" />
+<meta property="article:published_time" content="2020-03-29T06:30:08+05:30" />
+<meta property="article:modified_time" content="2020-03-29T06:30:08+05:30" />
+
+
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	 crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+	<link href="/css/medium.css" rel="stylesheet">
+	<link href="/css/additional.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+    <div class="container pr-0">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse" id="navbarMediumish">
+            
+            <ul class="navbar-nav ml-auto">
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">About Me</a>
+                </li>
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+</nav>
+
+
+        <div class="site-content">   
+            <div class="container">
+    
+    <div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul>
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://twitter.com/intent/tweet?text=Device%20Based%20Models%20With%20Tensorflow%20Lite&url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fdevice-based-models-with-tensorflow-lite%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
+        <i class="fab fa-twitter"></i>
+        </a>
+        </li>
+        
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fdevice-based-models-with-tensorflow-lite%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+        <i class="fab fa-facebook-f"></i>
+        </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://www.xing.com/spi/shares/new?url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fdevice-based-models-with-tensorflow-lite%2f" onclick="window.open(this.href, 'xing-share', 'width=550,height=435');return false;">
+        <i class="fab fa-xing"></i>
+        </a>
+        </li>        
+    </ul>
+
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                                      
+                        
+                        <h1 class="posttitle">Device Based Models With Tensorflow Lite</h1> 
+                        <span class="author-description">
+                        <i class="far fa-star"></i>
+                        Mar 29, 2020
+                        <i class="far fa-clock clock"></i>
+                        7 min read
+                        </spam>
+
+                    </div>
+
+                    
+                    
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        <p>We've seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there's
+something magical to getting these algorithms. Maybe a model that we've trained to run in your hand, on
+our smartphone or on a lightweight embedded processor like, an Arduino Raspberry Pi. TensorFlow Lite, an
+exciting technology that allows us to put our models directly and literally into people's hands.</p>
+<h2 id="overview">Overview</h2>
+<ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#components-in-tflite">Components in TFLite</a>
+<ul>
+<li><a href="#converter">Converter</a></li>
+<li><a href="#interpreter">Interpreter</a></li>
+</ul>
+</li>
+<li><a href="#architecture-performance-and-optimization">Architecture, Performance and Optimization</a>
+<ul>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#performance">Performance</a></li>
+<li><a href="#optimization">Optimization</a></li>
+</ul>
+</li>
+<li><a href="#example">Example</a></li>
+<li><a href="#running-tf-model-in-android-app">Running TF Model in Android App</a>
+<ul>
+<li><a href="#android-app-that-performs-image-classification">Android app that performs image classification</a></li>
+<li><a href="#android-app-that-performs-object-detection">Android app that performs object detection</a></li>
+</ul>
+</li>
+<li><a href="#building-the-tensorflow-model-on-ios">Building the TensorFlow model on IOS</a>
+<ul>
+<li><a href="#ios-app-that-performs-image-classification">IOS app that performs image classification</a></li>
+<li><a href="#ios-app-that-performs-object-detection">IOS app that performs object detection</a></li>
+</ul>
+</li>
+<li><a href="#tensorflow-lite-on-devices">Tensorflow Lite on devices</a></li>
+</ul>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Lightweight</strong> - We may have heard of mobile models like mobilenets and how they're designed for
+the mobile platform. Their goal is to be lightweight working on small low power devices like phones,
+and they may not be as accurate as those which run on supercomputers in the Cloud.</li>
+<li><strong>Low-Latency</strong> - TensorFlow Lite is a solution designed to run on devices with low latency and without
+the need for an Internet connection. With this, we could avoid following one regime where it would
+involve taking a round trip to a model server.</li>
+<li><strong>Privacy</strong> - Since TFLite uses on-device ML to operate, there's absolutely no need for data to leave the
+device in sharing user’s privacy.</li>
+<li><strong>Improved power consumption</strong> - It can also help improve power consumption as we might already
+be aware that network connections can tend to be very power-hungry.</li>
+<li><strong>Efficient model format</strong> - Models in TFLite are designed to have a small binary size with just a minor
+impact on accuracy.</li>
+<li><strong>Pre-trained models</strong> - When it comes to availability of pre-trained models, TensorFlow Lite has just
+about everything we need for the most common machine learning tasks, as well as sample examples
+that you could try out just to see how a model would run on a mobile device. Also, TensorFlow Lite
+comes with a utility that helps us convert TensorFlow models from their various formats into a
+special format that's consumable by TensorFlow Lite.</li>
+</ul>
+<h2 id="components-in-tflite">Components in TFLite</h2>
+<p>TensorFlow Lite comprises two main components; a converter, and an interpreter.</p>
+<p><img src="components-in-tensorflow-lite.png" alt="components-in-tensorflow-lite.png"></p>
+<h3 id="converter">Converter</h3>
+<p>The converter can be used for <strong>creating</strong> a TFLite model from various model formats and it runs on our model
+development and training environment. It allows us to <strong>optimize</strong> our models for optimal performance and
+even bring down the size of our model.</p>
+<h3 id="interpreter">Interpreter</h3>
+<p>The interpreter, which runs on our mobile device deals with the <strong>inference</strong> of these converted models. The
+interpreters core is responsible for executing these models and client applications using a reduced set of
+TensorFlow's operators. It uses a custom memory allocator, which is less dynamic to ensure minimal load,
+initialization, and execution latency. It also provides <strong>support</strong> for a wide range of devices both in mobile and
+IoT along with their hardware <strong>accelerated APIs</strong>.</p>
+<h2 id="architecture-performance-and-optimization">Architecture, Performance and Optimization</h2>
+<h3 id="architecture">Architecture</h3>
+<p>Once we trained a model and saved it like the recommended saved model format using tensorflow, we'll
+use the tensorflow light converter tools to flatten the model to prepare it for mobile or embedded devices.</p>
+<p><img src="tensorflowlite-architecture.png" alt="tensorflowlite-architecture.png"></p>
+<h3 id="performance">Performance</h3>
+<p>Running inference on compute heavy machine learning models on mobile devices is resource demanding
+due to a device having limited processing and power. So inference on these devices has to be performed
+very quickly to avoid overhead and make real-time applications possible.
+For this purpose tents flow lights can employ Software/Hardware acceleration libraries or apis for
+supported devices.</p>
+<p><img src="tensorflowlite-performance.png" alt="tensorflowlite-performance.png"></p>
+<p>List of ways to improve inference,</p>
+<ul>
+<li>Inference on Android devices is by leveraging Androids Neural Network API(NN API).</li>
+<li>Another form of acceleration which comes in tensorflow light is a TensorFlow Light delegate which
+is a way to pass our graph execution to Hardware (GPU, TPU) that specializes to run inference.</li>
+<li>It can be boosted with HTTP use as they are solely built for operating on deep learning models. This
+is not just limited to serving models, but also to training them. They're also known to be high
+performing and have a low-power footprint while being pretty small in size.</li>
+</ul>
+<p>More about <a href="https://www.youtube.com/watch?v=QSbAUxWfxQw">delegates</a></p>
+<h3 id="optimization">Optimization</h3>
+<p>This is necessary because of the generally limited resources on mobile and embedded devices. It's critical
+that deployed machine learning models have optimal model size, low latency, and power consumption. This
+is even more important on edge devices where resources are further constrained and model devices and
+efficiency of computation can become a major concern.</p>
+<p>There are several methods that one can use to achieve these types of optimizations,</p>
+<ul>
+<li><strong>Quantization</strong> - Which reduces the Precision of the numbers in the weights and biases of the model.</li>
+<li><strong>Weight Pruning</strong> - Which reduces the overall number of parameters.</li>
+<li><strong>Model topology transforms</strong> - Whose goal is to convert the overall model topology to get a more
+efficient model to begin with.</li>
+</ul>
+<p>In following examples, mostly focus on quantization because that can give us the biggest and easiest
+immediate gains.</p>
+<h2 id="example">Example</h2>
+<p>Note :: In below example, we have used the standalone TF Lite Interpreter (instead of on smaller devices),
+which runs in Python, and we'll use this to see how inference would work on smaller devices.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pathlib
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> tensorflow <span style="color:#f92672">as</span> tf
+<span style="color:#75715e"># Create a simple Keras model.</span>
+x <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+y <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>]
+model <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>Sequential([
+tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(units<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, input_shape<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>])
+])
+model<span style="color:#f92672">.</span>compile(optimizer<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sgd</span><span style="color:#e6db74">&#39;</span>,
+loss<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mean_squared_error</span><span style="color:#e6db74">&#39;</span>)
+model<span style="color:#f92672">.</span>fit(x, y, epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>)
+export_dir <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">saved_model/1</span><span style="color:#e6db74">&#39;</span>
+tf<span style="color:#f92672">.</span>saved_model<span style="color:#f92672">.</span>save(model, export_dir)
+<span style="color:#75715e"># Convert the model.</span>
+converter <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>lite<span style="color:#f92672">.</span>TFLiteConverter<span style="color:#f92672">.</span>from_saved_model(export_dir)
+tflite_model <span style="color:#f92672">=</span> converter<span style="color:#f92672">.</span>convert()
+tflite_model_file <span style="color:#f92672">=</span> pathlib<span style="color:#f92672">.</span>Path(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">model.tflite</span><span style="color:#e6db74">&#39;</span>)
+tflite_model_file<span style="color:#f92672">.</span>write_bytes(tflite_model)
+<span style="color:#75715e"># Load TFLite model and allocate tensors.</span>
+interpreter <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>lite<span style="color:#f92672">.</span>Interpreter(model_content<span style="color:#f92672">=</span>tflite_model)
+interpreter<span style="color:#f92672">.</span>allocate_tensors()
+<span style="color:#75715e"># Get input and output tensors.</span>
+input_details <span style="color:#f92672">=</span> interpreter<span style="color:#f92672">.</span>get_input_details()
+output_details <span style="color:#f92672">=</span> interpreter<span style="color:#f92672">.</span>get_output_details()
+<span style="color:#75715e"># Test the TensorFlow Lite model on random input data.</span>
+input_shape <span style="color:#f92672">=</span> input_details[<span style="color:#ae81ff">0</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">shape</span><span style="color:#e6db74">&#39;</span>]
+inputs, outputs <span style="color:#f92672">=</span> [], []
+<span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+input_data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random_sample(input_shape), dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>float32)
+interpreter<span style="color:#f92672">.</span>set_tensor(input_details[<span style="color:#ae81ff">0</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">index</span><span style="color:#e6db74">&#39;</span>], input_data)
+interpreter<span style="color:#f92672">.</span>invoke()
+tflite_results <span style="color:#f92672">=</span> interpreter<span style="color:#f92672">.</span>get_tensor(output_details[<span style="color:#ae81ff">0</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">index</span><span style="color:#e6db74">&#39;</span>])
+<span style="color:#75715e"># Test the TensorFlow model on random input data.</span>
+tf_results <span style="color:#f92672">=</span> model(tf<span style="color:#f92672">.</span>constant(input_data))
+output_data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(tf_results)
+inputs<span style="color:#f92672">.</span>append(input_data[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>])
+outputs<span style="color:#f92672">.</span>append(output_data[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>])
+<span style="color:#75715e"># Visualize the model.</span>
+<span style="color:#f92672">%</span>matplotlib inline
+plt<span style="color:#f92672">.</span>plot(inputs, outputs, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;</span>)
+plt<span style="color:#f92672">.</span>show()
+</code></pre></div><h2 id="running-tf-model-in-android-app">Running TF Model in Android App</h2>
+<p>Android is a versatile operating system that is used in a number of different device types, but most
+commonly phones, tablets and TV systems. Using TensorFlow Lite we can run our models on Android.</p>
+<p>Android studio development tools <a href="https://developer.android.com/studio">here</a>.</p>
+<h3 id="android-app-that-performs-image-classification">Android app that performs image classification</h3>
+<p>Build a basic Android app that has six built-in images of cats and dogs. We'll take the cats versus dogs
+pre-trained classifier model (converted as TfLite model). Architecturally we'll follow the process of getting
+an image from a view, preprocessing it, and then feeding it to the TensorFlow Lite interpreter to classify it.
+This will produce results that we can render out to the user.<br>
+Cat_vs_dog sample mobile app is available <a href="https://github.com/lmoroney/dlaicourse/tree/master/TensorFlow%20Deployment/Course%202%20-%20TensorFlow%20Lite/Week%202/Examples/Android%20Apps/cats_vs_dogs">here</a>.
+<img src="android-app-catvsdog.png" alt="android-app-catvsdog.png"></p>
+<h3 id="android-app-that-performs-object-detection">Android app that performs object detection</h3>
+<p>Next object detection in the video frame, where multiple objects may be recognized and bounding boxes
+drawn around them. The model used is trained on the COCO dataset and it can recognize up to 10 objects
+27
+in 80 classes. We can see our four-step process below. Many of the steps are similar to the last example,
+but mapping and rendering the results will be very different.</p>
+<p>Object_detection sample mobile app is available <a href="https://github.com/lmoroney/dlaicourse/tree/master/TensorFlow%20Deployment/Course%202%20-%20TensorFlow%20Lite/Week%202/Examples/Android%20Apps/object_detection">here</a>.</p>
+<p><img src="android-app-object-detection.png" alt="android-app-object-detection.png"></p>
+<h2 id="building-the-tensorflow-model-on-ios">Building the TensorFlow model on IOS</h2>
+<p>The other popular mobile operating system is, of course, iOS. We'll need some programming background
+with Swift for iOS. We'll go through two apps here similar to what we did for Android. In order to use
+TensorFlow Lite with Swift, there's a TensorFlow Lite Swift pod which gives us the interpreter and the
+various libraries.</p>
+<p>We can get details on the Swift interpreter for TensorFlow Lite at this <a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/experimental/swift">URL</a>. To add TensorFlow Lite to our
+iOS project, we use a pod file. The technology is called CocoaPods. It gives us an easy way to add
+dependencies to our projects.</p>
+<h3 id="ios-app-that-performs-image-classification">IOS app that performs image classification</h3>
+<p>Cat_vs_dog sample app is available <a href="https://github.com/lmoroney/dlaicourse/tree/master/TensorFlow%20Deployment/Course%202%20-%20TensorFlow%20Lite/Week%203/Examples/iOS%20Apps/cats_vs_dogs">here</a>.</p>
+<h3 id="ios-app-that-performs-object-detection">IOS app that performs object detection</h3>
+<p>Object_detection sample app is available <a href="https://github.com/lmoroney/dlaicourse/tree/master/TensorFlow%20Deployment/Course%202%20-%20TensorFlow%20Lite/Week%203/Examples/iOS%20Apps/object_detection">here</a>.</p>
+<h2 id="tensorflow-lite-on-devices">Tensorflow Lite on devices</h2>
+<p>We've looked at TensorFlow Lite and explored building apps on Android and iOS that use it. Now we are
+going to explore embedded systems like Raspberry Pi, and learn how to get our models running on that.
+The nice thing is that the Pi is a full Linux system, so it can run Python, allowing us to either use the full
+TensorFlow for Training and Inference, or just the Interpreter for Inference. Recommend the later, as
+training on a Pi can be slow.<br>
+Sample applications are available <a href="https://github.com/lmoroney/dlaicourse/tree/master/TensorFlow%20Deployment/Course%202%20-%20TensorFlow%20Lite/Week%204/Examples">here</a>.</p>
+<p><img src="tensorflow-lite-on-devices.png" alt="tensorflow-lite-on-devices.png"></p>
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/tensorflow">Tensorflow</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/tensorflow-lite">Tensorflow Lite</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/machine-learning">Machine Learning</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                        <a class="d-block col-md-6" href="https://pallaviramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/"> &laquo; Pulling Google Cloud Monitoring time-series data using python</a>
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-right" href="https://pallaviramicetty.github.io/blog/browser-based-models-with-tensorflow-js/">Browser Based Models With Tensorflow.js &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+            </div>
+  
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                &copy; Copyright Pallavi Ramicetty - All rights reserved
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" rel="noopener" href="https://www.wowthemes.net">Mediumish Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="/js/mediumish.js"></script>
+
+    </body>
+</html>

@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Pallavi Ramicetty - All rights reserved</copyright>
-    <lastBuildDate>Sun, 29 Mar 2020 05:10:32 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2020 06:30:08 +0530</lastBuildDate>
     
 	<atom:link href="https://pallaviramicetty.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Device Based Models With Tensorflow Lite</title>
+      <link>https://pallaviramicetty.github.io/blog/device-based-models-with-tensorflow-lite/</link>
+      <pubDate>Sun, 29 Mar 2020 06:30:08 +0530</pubDate>
+      
+      <guid>https://pallaviramicetty.github.io/blog/device-based-models-with-tensorflow-lite/</guid>
+      <description>&lt;p&gt;We&#39;ve seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there&#39;s
+something magical to getting these algorithms. Maybe a model that we&#39;ve trained to run in your hand, on
+our smartphone or on a lightweight embedded processor like, an Arduino Raspberry Pi. TensorFlow Lite, an
+exciting technology that allows us to put our models directly and literally into people&#39;s hands.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Browser Based Models With Tensorflow.js</title>
