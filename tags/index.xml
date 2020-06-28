@@ -67,18 +67,18 @@
     </item>
     
     <item>
-      <title>data pipelines</title>
-      <link>https://pallaviramicetty.github.io/tags/data-pipelines/</link>
-      <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
+      <title>federated learning</title>
+      <link>https://pallaviramicetty.github.io/tags/federated-learning/</link>
+      <pubDate>Mon, 30 Mar 2020 07:03:48 +0530</pubDate>
       
-      <guid>https://pallaviramicetty.github.io/tags/data-pipelines/</guid>
+      <guid>https://pallaviramicetty.github.io/tags/federated-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Machine Learning</title>
       <link>https://pallaviramicetty.github.io/tags/machine-learning/</link>
-      <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
+      <pubDate>Mon, 30 Mar 2020 07:03:48 +0530</pubDate>
       
       <guid>https://pallaviramicetty.github.io/tags/machine-learning/</guid>
       <description></description>
@@ -87,9 +87,18 @@
     <item>
       <title>Tensorflow</title>
       <link>https://pallaviramicetty.github.io/tags/tensorflow/</link>
-      <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
+      <pubDate>Mon, 30 Mar 2020 07:03:48 +0530</pubDate>
       
       <guid>https://pallaviramicetty.github.io/tags/tensorflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data pipelines</title>
+      <link>https://pallaviramicetty.github.io/tags/data-pipelines/</link>
+      <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
+      
+      <guid>https://pallaviramicetty.github.io/tags/data-pipelines/</guid>
       <description></description>
     </item>
     

@@ -22,6 +22,16 @@
     </item>
     
     <item>
+      <title>Federated Learning</title>
+      <link>https://pallaviramicetty.github.io/blog/federated-learning/</link>
+      <pubDate>Mon, 30 Mar 2020 07:03:48 +0530</pubDate>
+      
+      <guid>https://pallaviramicetty.github.io/blog/federated-learning/</guid>
+      <description>&lt;p&gt;Very important concept for training models with private data without uploading the user&#39;s private data into
+the cloud.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Data Pipelines With Tensorflow Data Services</title>
       <link>https://pallaviramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/</link>
       <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
