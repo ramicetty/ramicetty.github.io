@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.62.0" />
+	
+	<title>Pulling Google Cloud Monitoring time-series data using python | pallavi</title>
+	
+	
+
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pulling Google Cloud Monitoring time-series data using python"/>
+<meta name="twitter:description" content="Mostly we prefer to use cloud platforms for our products/applications, because of security, availability, maintenance, scalability, and cost-effectiveness. Also they provides monitoring tools to know about application performance. These tools help us to understand CPU load, memory, disk, latency,  throughput, and many more of a single instance or cluster."/>
+
+	<meta property="og:title" content="Pulling Google Cloud Monitoring time-series data using python" />
+<meta property="og:description" content="Mostly we prefer to use cloud platforms for our products/applications, because of security, availability, maintenance, scalability, and cost-effectiveness. Also they provides monitoring tools to know about application performance. These tools help us to understand CPU load, memory, disk, latency,  throughput, and many more of a single instance or cluster." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pallaviramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/" />
+<meta property="article:published_time" content="2020-06-27T06:49:05+05:30" />
+<meta property="article:modified_time" content="2020-06-27T06:49:05+05:30" />
+
+
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	 crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+	<link href="/css/medium.css" rel="stylesheet">
+	<link href="/css/additional.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+    <div class="container pr-0">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse" id="navbarMediumish">
+            
+            <ul class="navbar-nav ml-auto">
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">About Me</a>
+                </li>
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+</nav>
+
+
+        <div class="site-content">   
+            <div class="container">
+    
+    <div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul>
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://twitter.com/intent/tweet?text=Pulling%20Google%20Cloud%20Monitoring%20time-series%20data%20using%20python&url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fpulling-google-cloud-monitoring-time-series-data-using-python%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
+        <i class="fab fa-twitter"></i>
+        </a>
+        </li>
+        
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fpulling-google-cloud-monitoring-time-series-data-using-python%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+        <i class="fab fa-facebook-f"></i>
+        </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://www.xing.com/spi/shares/new?url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fpulling-google-cloud-monitoring-time-series-data-using-python%2f" onclick="window.open(this.href, 'xing-share', 'width=550,height=435');return false;">
+        <i class="fab fa-xing"></i>
+        </a>
+        </li>        
+    </ul>
+
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                                      
+                        
+                        <h1 class="posttitle">Pulling Google Cloud Monitoring time-series data using python</h1> 
+                        <span class="author-description">
+                        <i class="far fa-star"></i>
+                        Jun 27, 2020
+                        <i class="far fa-clock clock"></i>
+                        2 min read
+                        </spam>
+
+                    </div>
+
+                    
+                    
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        <p>Mostly we prefer to use cloud platforms for our products/applications, because of security, availability, maintenance, scalability, and cost-effectiveness. Also they provides monitoring tools to know about application performance. These tools help us to understand CPU load, memory, disk, latency,  throughput, and many more of a single instance or cluster.</p>
+<p>I got the opportunity to pull these metric data (time-series) out and generate reports with graphs and custom statistics for spark clusters (application uses BigTable and Dataproc at GCP ). So that others in a team (performance testing team) can stop doing repetitive work at metric explorer in a GCP to understand instance/cluster load and performance over time for every job/task.</p>
+<p>To do POC, Created my own GCP account (trial) and project. Then, by the following instructions given in this <a href="https://github.com/pallaviramicetty/cloud-bigtable-examples/tree/master/java/dataproc-wordcount">repo</a>, I have run the Hadoop job to do word-count in giving data sources with Bigtable(with node 1) and Dataproc(with nodes 2) clusters in GCP.</p>
+<p>Using google-cloud-monitoring <a href="https://googleapis.dev/python/monitoring/latest/gapic/v3/api.html">client</a>, pandas, and matplotlib. I was able to get graphs as below.</p>
+<p><img src="cpu_utilization_graphs_1.png" alt="dataproc-CPU-utilization">
+<img src="cpu_utilization_graphs_2.png" alt="dataproc-CPU-utilization-mean"></p>
+<h2 id="sample-python-script">Sample python script.</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">import</span> datetime
+<span style="color:#f92672">import</span> json
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
+<span style="color:#f92672">from</span> google.cloud <span style="color:#f92672">import</span> monitoring_v3
+
+<span style="color:#75715e"># References</span>
+<span style="color:#75715e"># https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/monitoring/api/v3/cloud-client/snippets.py</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_get_timestamp</span>(datetime_string):
+    <span style="color:#66d9ef">return</span> int(datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>timestamp(datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>strptime(datetime_string, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%</span><span style="color:#e6db74">Y </span><span style="color:#e6db74">%</span><span style="color:#e6db74">H:</span><span style="color:#e6db74">%</span><span style="color:#e6db74">M:</span><span style="color:#e6db74">%</span><span style="color:#e6db74">S</span><span style="color:#e6db74">&#34;</span>)))
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">timestamp_datetime</span>(timestamp):
+    <span style="color:#66d9ef">return</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>fromtimestamp(timestamp)
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_timeseries_datapoints</span>(points):
+    data_points <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> points:
+        start_time <span style="color:#f92672">=</span> timestamp_datetime(p<span style="color:#f92672">.</span>interval<span style="color:#f92672">.</span>start_time<span style="color:#f92672">.</span>seconds)
+        end_time <span style="color:#f92672">=</span> timestamp_datetime(p<span style="color:#f92672">.</span>interval<span style="color:#f92672">.</span>end_time<span style="color:#f92672">.</span>seconds)
+        value <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>value<span style="color:#f92672">.</span>double_value
+        data_points<span style="color:#f92672">.</span>append((start_time, end_time, value))
+    df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data_points, columns<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">start_time</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">end_time</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">value</span><span style="color:#e6db74">&#34;</span>])
+    df[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">start_time</span><span style="color:#e6db74">&#34;</span>] <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_datetime(df[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">start_time</span><span style="color:#e6db74">&#39;</span>])
+    df[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">end_time</span><span style="color:#e6db74">&#34;</span>] <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_datetime(df[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">end_time</span><span style="color:#e6db74">&#39;</span>])
+    <span style="color:#66d9ef">return</span> df
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">timeseries_df</span>(ts):
+    metric_labels <span style="color:#f92672">=</span> dict(ts<span style="color:#f92672">.</span>metric<span style="color:#f92672">.</span>labels)
+    resource_labels <span style="color:#f92672">=</span> dict(ts<span style="color:#f92672">.</span>resource<span style="color:#f92672">.</span>labels)
+    df <span style="color:#f92672">=</span> get_timeseries_datapoints(ts<span style="color:#f92672">.</span>points)
+    <span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span>  metric_labels:
+            df[key] <span style="color:#f92672">=</span> metric_labels[key]
+    <span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> resource_labels:
+        df[key] <span style="color:#f92672">=</span> resource_labels[key]
+    <span style="color:#66d9ef">return</span> df
+
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_aggregation</span>(aligner, reducer, alignment_period<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>):
+    aggregation <span style="color:#f92672">=</span> monitoring_v3<span style="color:#f92672">.</span>types<span style="color:#f92672">.</span>Aggregation()
+    aggregation<span style="color:#f92672">.</span>alignment_period<span style="color:#f92672">.</span>seconds <span style="color:#f92672">=</span> alignment_period
+    aggregation<span style="color:#f92672">.</span>per_series_aligner <span style="color:#f92672">=</span> aligner
+    aggregation<span style="color:#f92672">.</span>cross_series_reducer <span style="color:#f92672">=</span> reducer
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">time_series</span>(project_id, filter, start_time, end_time, aggregation<span style="color:#f92672">=</span>None):
+    client <span style="color:#f92672">=</span> monitoring_v3<span style="color:#f92672">.</span>MetricServiceClient()
+    project_name <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>project_path(project_id)
+
+    interval <span style="color:#f92672">=</span> monitoring_v3<span style="color:#f92672">.</span>types<span style="color:#f92672">.</span>TimeInterval()
+    interval<span style="color:#f92672">.</span>end_time<span style="color:#f92672">.</span>seconds <span style="color:#f92672">=</span> _get_timestamp(end_time)
+    interval<span style="color:#f92672">.</span>start_time<span style="color:#f92672">.</span>seconds <span style="color:#f92672">=</span> _get_timestamp(start_time)
+
+    results <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>list_time_series(project_name,
+                                      filter,
+                                      interval,
+                                      monitoring_v3<span style="color:#f92672">.</span>enums<span style="color:#f92672">.</span>ListTimeSeriesRequest<span style="color:#f92672">.</span>TimeSeriesView<span style="color:#f92672">.</span>HEADERS, aggregation)
+    count <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> result <span style="color:#f92672">in</span> results:
+        timeseries_df(result)<span style="color:#f92672">.</span>to_csv(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">metric_{}.csv</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(str(count)), index<span style="color:#f92672">=</span>False)
+        count <span style="color:#f92672">=</span> count <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#34;</span>:
+
+    filter <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">metric.type=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">compute.googleapis.com/instance/cpu/utilization</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> resource.type=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">gce_instance</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> resource.label.instance_id=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> resource.label.zone=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">xxxxx</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">us-central1-a</span><span style="color:#e6db74">&#34;</span>)
+    aggregation <span style="color:#f92672">=</span> get_aggregation(monitoring_v3<span style="color:#f92672">.</span>enums<span style="color:#f92672">.</span>Aggregation<span style="color:#f92672">.</span>Aligner<span style="color:#f92672">.</span>ALIGN_MEAN, monitoring_v3<span style="color:#f92672">.</span>enums<span style="color:#f92672">.</span>Aggregation<span style="color:#f92672">.</span>Reducer<span style="color:#f92672">.</span>REDUCE_SUM)
+    time_series(project_id<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">xxxxx</span><span style="color:#e6db74">&#39;</span>, filter<span style="color:#f92672">=</span>filter, start_time<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">05-21-2020 06:23:00</span><span style="color:#e6db74">&#34;</span>, end_time<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">05-21-2020 08:11:08</span><span style="color:#e6db74">&#34;</span>, aggregation<span style="color:#f92672">=</span>aggregation)
+
+
+</code></pre></div>
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/bigtable">bigtable</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/dataproc">dataproc</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/google-cloud">google-cloud</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/bigdata">bigdata</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/cloud-monitoring">cloud-monitoring</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/gcp-monitoring">GCP-Monitoring</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-right" href="https://pallaviramicetty.github.io/blog/how-to-speak-by-patrick-winston/">How To Speak by Patrick Winston &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+            </div>
+  
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                &copy; Copyright Pallavi Ramicetty - All rights reserved
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" rel="noopener" href="https://www.wowthemes.net">Mediumish Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="/js/mediumish.js"></script>
+
+    </body>
+</html>

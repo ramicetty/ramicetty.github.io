@@ -13,12 +13,12 @@
     
     
     <item>
-      <title>Next Blog</title>
-      <link>https://pallaviramicetty.github.io/blog/next-blog/</link>
+      <title>Pulling Google Cloud Monitoring time-series data using python</title>
+      <link>https://pallaviramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/</link>
       <pubDate>Sat, 27 Jun 2020 06:49:05 +0530</pubDate>
       
-      <guid>https://pallaviramicetty.github.io/blog/next-blog/</guid>
-      <description>python utility to monitor bigdata related components bigtable and dataproc in google cloud.</description>
+      <guid>https://pallaviramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/</guid>
+      <description>&lt;p&gt;Mostly we prefer to use cloud platforms for our products/applications, because of security, availability, maintenance, scalability, and cost-effectiveness. Also they provides monitoring tools to know about application performance. These tools help us to understand CPU load, memory, disk, latency,  throughput, and many more of a single instance or cluster.&lt;/p&gt;</description>
     </item>
     
   </channel>
