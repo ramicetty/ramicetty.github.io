@@ -22,6 +22,18 @@
     </item>
     
     <item>
+      <title>Data Pipelines With Tensorflow Data Services</title>
+      <link>https://pallaviramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/</link>
+      <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
+      
+      <guid>https://pallaviramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/</guid>
+      <description>&lt;p&gt;Data powers all of our machine learning models. TensorFlow Data Services makes managing data
+much easier. As developers, one of the things that we&#39;ve discovered when we are building models is that
+we often have to write far more lines of code to get our data and to slice our data and to manage our data
+to be able to feed it for training, then we write code for the actual training itself.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Device Based Models With Tensorflow Lite</title>
       <link>https://pallaviramicetty.github.io/blog/device-based-models-with-tensorflow-lite/</link>
       <pubDate>Sun, 29 Mar 2020 06:30:08 +0530</pubDate>

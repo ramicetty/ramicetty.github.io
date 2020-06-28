@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.62.0" />
+	
+	<title>Data Pipelines With Tensorflow Data Services | pallavi</title>
+	
+	
+
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Pipelines With Tensorflow Data Services"/>
+<meta name="twitter:description" content="Data powers all of our machine learning models. TensorFlow Data Services makes managing data
+much easier. As developers, one of the things that we&#39;ve discovered when we are building models is that
+we often have to write far more lines of code to get our data and to slice our data and to manage our data
+to be able to feed it for training, then we write code for the actual training itself."/>
+
+	<meta property="og:title" content="Data Pipelines With Tensorflow Data Services" />
+<meta property="og:description" content="Data powers all of our machine learning models. TensorFlow Data Services makes managing data
+much easier. As developers, one of the things that we&#39;ve discovered when we are building models is that
+we often have to write far more lines of code to get our data and to slice our data and to manage our data
+to be able to feed it for training, then we write code for the actual training itself." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pallaviramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/" />
+<meta property="article:published_time" content="2020-03-30T05:28:17+05:30" />
+<meta property="article:modified_time" content="2020-03-30T05:28:17+05:30" />
+
+
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	 crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+	<link href="/css/medium.css" rel="stylesheet">
+	<link href="/css/additional.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+    <div class="container pr-0">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse" id="navbarMediumish">
+            
+            <ul class="navbar-nav ml-auto">
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">About Me</a>
+                </li>
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+</nav>
+
+
+        <div class="site-content">   
+            <div class="container">
+    
+    <div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul>
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://twitter.com/intent/tweet?text=Data%20Pipelines%20With%20Tensorflow%20Data%20Services&url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fdata-pipelines-with-tensorflow-data-services%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
+        <i class="fab fa-twitter"></i>
+        </a>
+        </li>
+        
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fdata-pipelines-with-tensorflow-data-services%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+        <i class="fab fa-facebook-f"></i>
+        </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://www.xing.com/spi/shares/new?url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fdata-pipelines-with-tensorflow-data-services%2f" onclick="window.open(this.href, 'xing-share', 'width=550,height=435');return false;">
+        <i class="fab fa-xing"></i>
+        </a>
+        </li>        
+    </ul>
+
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                                      
+                        
+                        <h1 class="posttitle">Data Pipelines With Tensorflow Data Services</h1> 
+                        <span class="author-description">
+                        <i class="far fa-star"></i>
+                        Mar 30, 2020
+                        <i class="far fa-clock clock"></i>
+                        9 min read
+                        </spam>
+
+                    </div>
+
+                    
+                    
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        <p>Data powers all of our machine learning models. TensorFlow Data Services makes managing data
+much easier. As developers, one of the things that we've discovered when we are building models is that
+we often have to write far more lines of code to get our data and to slice our data and to manage our data
+to be able to feed it for training, then we write code for the actual training itself.</p>
+<p>Here, we'll learn about
+how to quickly load and use existing datasets, how to input datasets from outside into the TFRecord
+format, and how to build efficient data pipelines and optimizations. Finally, we'll learn how to polish and
+maybe share our own datasets with others using this framework.</p>
+<h2 id="overview">Overview</h2>
+<ul>
+<li><a href="#introduction-to-tensorflow-datasets-tfds">Introduction to Tensorflow Datasets (tfds)</a>
+<ul>
+<li><a href="#data-is-not-what-it-seems">Data is not what it seems</a></li>
+<li><a href="#tensorflow-datasets-tfds">Tensorflow Datasets (TFDS)</a></li>
+<li><a href="#extract-transform-and-load">Extract, Transform and Load</a></li>
+<li><a href="#versioning">Versioning</a></li>
+</ul>
+</li>
+<li><a href="#exporting-data-into-the-training-pipeline">Exporting data into the training pipeline</a>
+<ul>
+<li><a href="#feature-columns">Feature Columns</a>
+<ul>
+<li><a href="#numeric-column">Numeric Column</a></li>
+<li><a href="#bucketized-column">Bucketized Column</a></li>
+<li><a href="#categorical-identity-column">Categorical identity column</a></li>
+<li><a href="#vocabulary-column">Vocabulary Column</a></li>
+<li><a href="#hashed-column">Hashed Column</a></li>
+<li><a href="#feature-crossing">Feature Crossing</a></li>
+<li><a href="#embedding-column">Embedding column</a></li>
+</ul>
+</li>
+<li><a href="#loading-data-and-extracting">Loading data and extracting</a></li>
+</ul>
+</li>
+<li><a href="#performance">Performance</a>
+<ul>
+<li><a href="#boosting-tf-data-pipeline">Boosting tf.data pipeline</a></li>
+<li><a href="#etl-revisited">ETL Revisited</a></li>
+<li><a href="#what-happens-when-we-train-a-model">What happens when we train a model?</a></li>
+<li><a href="#data-and-its-problems">Data and its problems</a></li>
+<li><a href="#methodologies-to-improve-performance">Methodologies to improve performance</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="introduction-to-tensorflow-datasets-tfds">Introduction to Tensorflow Datasets (tfds)</h2>
+<p>Over time, we've noticed that the type of data used to create models and thus also used for inference tends
+to fall into these high-level categories.</p>
+<p><img src="types-of-data.png" alt="types-of-data.png"></p>
+<h3 id="data-is-not-what-it-seems">Data is not what it seems</h3>
+<ul>
+<li>Source data can be a little bit out of step as various collections of public research data are found in
+vastly different formats that cannot simply be loaded without a lot of custom coding.</li>
+<li>Every dataset has its own set of instructions that needs to be followed in order to set it up.</li>
+<li>If you have a particular dataset in mind, we may not be entirely sure how much data it holds until
+we actually download it.</li>
+<li>We also have the need to transform data into a format that's readily usable by a model.</li>
+<li>Every single source of data can be different and have different considerations, even data sets of the
+same basic type.</li>
+</ul>
+<h3 id="tensorflow-datasets-tfds">Tensorflow Datasets (TFDS)</h3>
+<p>With TensorFlow datasets, we can do away with all of these problems.</p>
+<ul>
+<li><strong>Ready-to-use</strong> - TFDS was built with the intention of easily integrating your dataset seamlessly with
+TensorFlow's training pipeline.</li>
+<li><strong>Flexible</strong> - It's very flexible to switch between different datasets with minimal code changes and to
+handle diverse data structures and use cases.</li>
+<li><strong>Plethora of Public Research data</strong> - TFDS comes with a rich collection of data sources related to a
+multitude of machine learning tasks.
+30</li>
+<li><strong>Seamless Integration</strong> - In order to make tasks work seamlessly together with TensorFlow, the
+pipelines are designed in a way so that no additional dependencies are needed.</li>
+<li><strong>Faster prototyping</strong> - Since all of these features indirectly improve productivity and building these
+pipelines, you can focus on experimenting and optimizing them.</li>
+</ul>
+<p>Here are some of the well-known datasets available in TFDS which we can integrate with our machine
+learning workflows.</p>
+<p><img src="popular-datasets.png" alt="popular-datasets.png"></p>
+<h3 id="extract-transform-and-load">Extract, Transform and Load</h3>
+<p>Data pipelines at TFDS work on the principle of ETL, which stands for extract, transform, load. Separating
+these tasks allows us to make systems that are less brittle to changes in the underlying data.</p>
+<p><img src="extract-transform-load.png" alt="extract-transform-load.png"></p>
+<p><strong>Extract</strong> - tfds and tf.data cannot just extract data from simpler sources, like in memory arrays. But also
+large data sets which are composed of multiple shards distributed in cloud storage systems.</p>
+<p><strong>Transform</strong> - It can then transform the data, a process of extracting features performing augmentation on
+our data. And also converting data to tensors when necessary to get it ready for training.<br>
+<strong>Load</strong> - By the time we have our transformed data with us, we can then go ahead and load it into the
+appropriate device. Such as a GPU or TPU with a set of tools in Tensorflow. How we load the data can have
+a significant impact on the performance of your training pipelines.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> tensorflow <span style="color:#f92672">as</span> tf
+<span style="color:#f92672">import</span> tensorflow_datasets <span style="color:#f92672">as</span> tfds
+<span style="color:#75715e"># EXTRACT</span>
+dataset <span style="color:#f92672">=</span> tfds<span style="color:#f92672">.</span>load(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mnist</span><span style="color:#e6db74">&#34;</span>, split<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">train</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#75715e"># TRANSFORM</span>
+dataset<span style="color:#f92672">.</span>shuffle(<span style="color:#ae81ff">100</span>)
+<span style="color:#75715e"># LOAD</span>
+<span style="color:#66d9ef">for</span> data <span style="color:#f92672">in</span> dataset<span style="color:#f92672">.</span>take(<span style="color:#ae81ff">1</span>):
+image <span style="color:#f92672">=</span> data[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">image</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>numpy()<span style="color:#f92672">.</span>squeeze()
+label <span style="color:#f92672">=</span> data[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">label</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>numpy()
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Label: {}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(label))
+plt<span style="color:#f92672">.</span>imshow(image, cmap<span style="color:#f92672">=</span>plt<span style="color:#f92672">.</span>cm<span style="color:#f92672">.</span>binary)
+plt<span style="color:#f92672">.</span>show()
+</code></pre></div><h3 id="versioning">Versioning</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Loading specific version</span>
+mnist <span style="color:#f92672">=</span> tfds<span style="color:#f92672">.</span>load(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mnist:1.*.*</span><span style="color:#e6db74">&#34;</span>)
+</code></pre></div><p>Every dataset is versioned so that if the dataset grows and evolves, a specific version we may have used
+and will be maintained so that our results can be reproducible. Changes to the dataset will spawn new
+versions. TFDS versioning comprises three numbers delimited by a period. Major version, Minor version and
+Patch level.</p>
+<p><strong>Major version change</strong> - If we increment the major version, the slicing API may not necessarily return the
+same set of records for a given slice. This can even be the case if the existing data has changed.</p>
+<p><strong>Minor version change</strong> - An increase in the minor version signifies that there’s no change in the existing
+data, but implies that some additional features have been added.</p>
+<p><strong>Patch version change</strong> - If the patch version has increased, the serialization on disk may have changed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Dataset <span style="color:#f92672">=</span> tfds<span style="color:#f92672">.</span>load(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mnist</span><span style="color:#e6db74">&#39;</span>, as_supervised<span style="color:#f92672">=</span>True)
+<span style="color:#75715e"># Inspecting shapes of a batch</span>
+<span style="color:#66d9ef">for</span> image, label <span style="color:#f92672">in</span> dataset[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">train</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>take(<span style="color:#ae81ff">1</span>):
+<span style="color:#66d9ef">print</span>(image<span style="color:#f92672">.</span>shape, label<span style="color:#f92672">.</span>shape)
+<span style="color:#75715e"># (1, 28, 28, 1) (1,)</span>
+</code></pre></div><p>A handy feature of loading a dataset is to specify it as_supervised. If you do this as_supervised equals true,
+then our dataset will be preformatted into tuples of data and label. If you set it as false, our dataset will be
+available as a dictionary.</p>
+<h2 id="exporting-data-into-the-training-pipeline">Exporting data into the training pipeline</h2>
+<p>When it comes to using data, what type of data do we think we can feed into a neural network? The answer
+of course is numbers such as floats. Real life input data may contain non-numerical data such as strings,
+numbers that represent categories. We can create input pipelines to process there inputs into the form
+that can be the tf.data API enables us to build complex input pipelines from simple reusable pieces.</p>
+<p>For example,</p>
+<p><strong>Image model pipeline</strong></p>
+<ul>
+<li>Aggregate data from files in a distributed file system</li>
+<li>Apply random perturbations to each image</li>
+<li>Merge randomly selected images into batch for training</li>
+</ul>
+<p><strong>Text model pipeline</strong></p>
+<ul>
+<li>Extracting symbols from raw text data</li>
+<li>Converting them to embedding identifiers with a lookup table</li>
+<li>Batching together sequences of different lengths</li>
+</ul>
+<h3 id="feature-columns">Feature Columns</h3>
+<p><img src="feature-columns.png" alt="feature-columns.png"></p>
+<h4 id="numeric-column">Numeric Column</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Default to a tf.float32 scalar</span>
+neumeric_feature_column <span style="color:#f92672">=</span> feature_column<span style="color:#f92672">.</span>numeric_column(key <span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">length</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#75715e"># Represent a tf.float64 scalar</span>
+neumeric_feature_column <span style="color:#f92672">=</span> feature_column<span style="color:#f92672">.</span>numeric_column(key <span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">length</span><span style="color:#e6db74">&#34;</span>, dtype<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>float64)
+</code></pre></div><h4 id="bucketized-column">Bucketized Column</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># first convert the raw input to a numeric column</span>
+Numeric_feature_column <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>numeric_column(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">year</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#75715e"># then, bucketize the numeric column on the year 1960,, 1980 and 2000</span>
+bucketized_feature_column <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>bucketized_column(source_column<span style="color:#f92672">=</span>Numeric_feature_column, boundaries <span style="color:#f92672">=</span>
+[<span style="color:#ae81ff">1960</span>, <span style="color:#ae81ff">1980</span>, <span style="color:#ae81ff">2000</span>])
+</code></pre></div><h4 id="categorical-identity-column">Categorical identity column</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Identity_feature_column <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>categorical_column_with_identity(key<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">my_feature_B</span><span style="color:#e6db74">&#34;</span>, num_buckets<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+</code></pre></div><h4 id="vocabulary-column">Vocabulary Column</h4>
+<p>A great way to handle strings if we have a fixed range of keywords is to use a Categorical Vocabulary
+Column.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># From vocabulary list</span>
+Vocabulary_feature_column1 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>categorical_column_with_vocabulary_list(key<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">feature_1</span><span style="color:#e6db74">&#34;</span>,
+vocabulary_list<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">kitchenware</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">electronics</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sports</span><span style="color:#e6db74">&#34;</span>])
+<span style="color:#75715e"># From vocabulary file</span>
+Vocabulary_feature_column2 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>categorical_column_with_vocabulary_list(key<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">feature_1</span><span style="color:#e6db74">&#34;</span>,
+vocabulary_file<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">product_class.txt</span><span style="color:#e6db74">&#34;</span>, vocabulary_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</code></pre></div><h4 id="hashed-column">Hashed Column</h4>
+<p>Categorical Vocabulary Column works nicely if there is a small number of categories and the example we
+saw earlier had only three or four. A common technique used when there are many categories is to hash
+them to a smaller set. Make sure hash size is considered carefully to avoid too many conflicts.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">hashed_features_column <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>categorical_column_with_hash_bucket_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>)
+</code></pre></div><h4 id="feature-crossing">Feature Crossing</h4>
+<p>Feature crosses are synthetic features formed by multiplying or crossing two or more features. Crossing
+features can provide predictive abilities beyond what those features could provide individually.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Bucketize the latitude and longitude using the &#34;edges&#34;</span>
+Latitude_bucket_fc <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>bucketized_column(tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>numeric_column(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">latitude</span><span style="color:#e6db74">&#39;</span>),
+list(atlanta<span style="color:#f92672">.</span>latitude<span style="color:#f92672">.</span>edges))
+longitude_bucket_fc <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>bucketized_column(tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>numeric_column(longitude),
+list(atlanta<span style="color:#f92672">.</span>latitude<span style="color:#f92672">.</span>edges))
+<span style="color:#75715e"># Cross the bucketized columns using 5000 hash bins</span>
+crossed_lat_lon_fc <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>crossed_column((latitude_bucket_fc, longitude_bucket_fc), <span style="color:#ae81ff">5000</span>)
+</code></pre></div><h4 id="embedding-column">Embedding column</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">embedded_dimentions <span style="color:#f92672">=</span> number_of_categories <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">0.25</span>
+categorical_column <span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span> <span style="color:#75715e"># create any categorical column</span>
+<span style="color:#75715e"># Represent the categorical column as an embedding column. This means creating # an embedding vector lookup table</span>
+<span style="color:#66d9ef">with</span> one element <span style="color:#66d9ef">for</span> each category<span style="color:#f92672">.</span>
+embedding_column <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>feature_column<span style="color:#f92672">.</span>embedding_column(categorical_column <span style="color:#f92672">=</span> categorical_column, dimension <span style="color:#f92672">=</span>
+embedding_dimensions)
+</code></pre></div><h3 id="loading-data-and-extracting">Loading data and extracting</h3>
+<p>Now that we've seen feature columns, let's switch gears a little and see how data gets loaded and extracted
+to the ETL pipeline. There's lots of ways data can get into the pipeline, and we'll explore some of the most
+commonly used including NumPy, DataFrames, images, CSV and text, TF records and generators.</p>
+<p>Sample script available <a href="https://github.com/lmoroney/dlaicourse/blob/master/TensorFlow%20Deployment/Course%203%20-%20TensorFlow%20Datasets/Week%202/Examples/data.ipynb">here</a>.</p>
+<h2 id="performance">Performance</h2>
+<p>How we load our data into our model can have a huge impact on how efficiently the model trains. we'll
+learn how to handle our data input to avoid bottlenecks, race conditions and more. The design of our data
+and input pipeline can be as important as the design of our model layers when it comes to efficient training.</p>
+<h3 id="boosting-tf-data-pipeline">Boosting tf data pipeline</h3>
+<ul>
+<li>Rise of accelerators and parallelism</li>
+<li>High-performant tf.data input pipelines</li>
+<li>Adopt pipelines to different scenarios</li>
+<li>Learn better ways of using tf.data operations.</li>
+</ul>
+<h3 id="etl-revisited">ETL Revisited</h3>
+<p><img src="etl-revisited.png" alt="etl-revisited.png"></p>
+<h3 id="what-happens-when-we-train-a-model">What happens when we train a model?</h3>
+<p>Let's now think about what's going on, particularly from a processor perspective, when we're training a
+model. Typically, the preprocessing parts,the extraction and transformation, is done with a CPU. This type of code simply doesn't run on a GPU or TPU, loading data, storing it, shuffling and converting it, etc. But the
+training will take place on a GPU or TPU if it's available, and that's where significant performance
+investment has been made. But when we think about it that first step, being on the CPU, can become a
+bottleneck.
+Below figure you can see that either the CPU is idle or the accelerators are, and that's not a very efficient
+use of our resources.</p>
+<p><img src="data-model.png" alt="data-model.png"></p>
+<h3 id="data-and-its-problems">Data and its problems</h3>
+<ul>
+<li>Bound to come across fitting input data locally</li>
+<li>When distributed training expects distributed data</li>
+<li>Avoid having the same data on every machine</li>
+</ul>
+<p>So let's consider what pipelining will do here when we try to design a system to reduce the wasted time. If
+we realize the time taken for preparation can be parallelized with the training, then we'll end up with a
+scenario like the bottom of the diagram below. We can spend some time preparing batch one, and then
+while we're training batch one, we can prepare batch two, and while we're training that, we prepare batch
+three and so on. So now you've seen the opportunity for tuning and performance improvement in our
+pipeline by reducing idle time between the CPU and GPU and looking to avoid bottlenecks, particularly in
+the CPU parts of the ETL process.</p>
+<p><img src="pipelining.png" alt="pipelining.png"></p>
+<h3 id="methodologies-to-improve-performance">Methodologies to improve performance</h3>
+<ul>
+<li>Improve training time with caching</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dataset <span style="color:#f92672">=</span> tfds<span style="color:#f92672">.</span>load(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">cats_vs_dogs</span><span style="color:#e6db74">&#34;</span>, split<span style="color:#f92672">=</span>tfds<span style="color:#f92672">.</span>Split<span style="color:#f92672">.</span>TRAIN)
+<span style="color:#75715e"># In-memory</span>
+train_datset <span style="color:#f92672">=</span> dataset<span style="color:#f92672">.</span>cache()
+<span style="color:#75715e"># Disk</span>
+train_dataset <span style="color:#f92672">=</span> dataset<span style="color:#f92672">.</span>cache(file_name <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">cache</span><span style="color:#e6db74">&#34;</span>)
+model<span style="color:#f92672">.</span>fit(train_dataset, epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+</code></pre></div><ul>
+<li>Parallelism APIs</li>
+</ul>
+<p><img src="parallelism.png" alt="parallelism.png"></p>
+<ul>
+<li>Autotuning
+<ul>
+<li>tf.data.experimental.AUTOTUNE</li>
+<li>Tunes the values dynamically at runtime</li>
+<li>Decides on the level of parallelism</li>
+<li>Tweaks values of parameters in transformations (tf.data)
+<ul>
+<li>Buffer size (map, prefetch, shuffle, &hellip;)</li>
+<li>CPU budget (num_parallel_calls)</li>
+<li>I/O (num_parallel_reads)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dataset <span style="color:#f92672">=</span> tfds<span style="color:#f92672">.</span>load(<span style="color:#960050;background-color:#1e0010">“</span>cats_vs_dogs<span style="color:#960050;background-color:#1e0010">”</span>, split<span style="color:#f92672">=</span>tfds<span style="color:#f92672">.</span>Split<span style="color:#f92672">.</span>TRAIN)
+train_dataset <span style="color:#f92672">=</span> dataset<span style="color:#f92672">.</span>map(format_image)<span style="color:#f92672">.</span>prefetch(tf<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>experimental<span style="color:#f92672">.</span>AUTOTUNE)
+</code></pre></div><p><img src="with-prefetch.png" alt="with-prefetch.png"></p>
+<ul>
+<li>Parallelizing data extraction</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">TERECORD_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+files <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>Dataset<span style="color:#f92672">.</span>list_files(TERECORD_DIR <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">cats_vs_dogs-train.tfrecord-*</span><span style="color:#e6db74">&#34;</span>)
+num_parallel_reads <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+dataset<span style="color:#f92672">=</span> files<span style="color:#f92672">.</span>interleave(tf<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>TFRECORDDataset, <span style="color:#75715e"># map function</span>
+cycle_length<span style="color:#f92672">=</span>num_parallel_reads, <span style="color:#75715e"># ...</span>
+num_parallel_calls<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>experimental<span style="color:#f92672">.</span>AUTOTUNE)
+</code></pre></div><p><img src="parallelizing-data-extraction.png" alt="parallelizing-data-extraction.png"></p>
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/tensorflow">Tensorflow</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/data-pipelines">data pipelines</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/machine-learning">Machine Learning</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                        <a class="d-block col-md-6" href="https://pallaviramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/"> &laquo; Pulling Google Cloud Monitoring time-series data using python</a>
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-right" href="https://pallaviramicetty.github.io/blog/device-based-models-with-tensorflow-lite/">Device Based Models With Tensorflow Lite &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+            </div>
+  
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                &copy; Copyright Pallavi Ramicetty - All rights reserved
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" rel="noopener" href="https://www.wowthemes.net">Mediumish Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="/js/mediumish.js"></script>
+
+    </body>
+</html>
