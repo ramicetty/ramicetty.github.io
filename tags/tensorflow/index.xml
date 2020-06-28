@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tensorflow on pallavi</title>
+    <link>https://pallaviramicetty.github.io/tags/tensorflow/</link>
+    <description>Recent content in Tensorflow on pallavi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Pallavi Ramicetty - All rights reserved</copyright>
+    <lastBuildDate>Sun, 29 Mar 2020 05:10:32 +0530</lastBuildDate>
+    
+	<atom:link href="https://pallaviramicetty.github.io/tags/tensorflow/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Browser Based Models With Tensorflow.js</title>
+      <link>https://pallaviramicetty.github.io/blog/browser-based-models-with-tensorflow-js/</link>
+      <pubDate>Sun, 29 Mar 2020 05:10:32 +0530</pubDate>
+      
+      <guid>https://pallaviramicetty.github.io/blog/browser-based-models-with-tensorflow-js/</guid>
+      <description>&lt;p&gt;One of the existing things about JS is that it allows us to do neural network training and inference right
+there in the web browser. So, it’s really cool that a user can upload a picture to a web browser or grab an
+image from a webcam and then have a neural network do training or inference right in the web browser
+without needing to send that image up to the cloud to be processed by a server.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.62.0" />
+	
+	<title>Browser Based Models With Tensorflow.js | pallavi</title>
+	
+	
+
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Browser Based Models With Tensorflow.js"/>
+<meta name="twitter:description" content="One of the existing things about JS is that it allows us to do neural network training and inference right
+there in the web browser. So, it’s really cool that a user can upload a picture to a web browser or grab an
+image from a webcam and then have a neural network do training or inference right in the web browser
+without needing to send that image up to the cloud to be processed by a server."/>
+
+	<meta property="og:title" content="Browser Based Models With Tensorflow.js" />
+<meta property="og:description" content="One of the existing things about JS is that it allows us to do neural network training and inference right
+there in the web browser. So, it’s really cool that a user can upload a picture to a web browser or grab an
+image from a webcam and then have a neural network do training or inference right in the web browser
+without needing to send that image up to the cloud to be processed by a server." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pallaviramicetty.github.io/blog/browser-based-models-with-tensorflow-js/" />
+<meta property="article:published_time" content="2020-03-29T05:10:32+05:30" />
+<meta property="article:modified_time" content="2020-03-29T05:10:32+05:30" />
+
+
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	 crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+	<link href="/css/medium.css" rel="stylesheet">
+	<link href="/css/additional.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+    <div class="container pr-0">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse" id="navbarMediumish">
+            
+            <ul class="navbar-nav ml-auto">
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">About Me</a>
+                </li>
+                 
+                <li class="nav-item ">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+</nav>
+
+
+        <div class="site-content">   
+            <div class="container">
+    
+    <div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul>
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://twitter.com/intent/tweet?text=Browser%20Based%20Models%20With%20Tensorflow.js&url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fbrowser-based-models-with-tensorflow-js%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
+        <i class="fab fa-twitter"></i>
+        </a>
+        </li>
+        
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fbrowser-based-models-with-tensorflow-js%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+        <i class="fab fa-facebook-f"></i>
+        </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+        <a target="_blank" href="https://www.xing.com/spi/shares/new?url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2fbrowser-based-models-with-tensorflow-js%2f" onclick="window.open(this.href, 'xing-share', 'width=550,height=435');return false;">
+        <i class="fab fa-xing"></i>
+        </a>
+        </li>        
+    </ul>
+
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                                      
+                        
+                        <h1 class="posttitle">Browser Based Models With Tensorflow.js</h1> 
+                        <span class="author-description">
+                        <i class="far fa-star"></i>
+                        Mar 29, 2020
+                        <i class="far fa-clock clock"></i>
+                        14 min read
+                        </spam>
+
+                    </div>
+
+                    
+                    
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        <p>One of the existing things about JS is that it allows us to do neural network training and inference right
+there in the web browser. So, it’s really cool that a user can upload a picture to a web browser or grab an
+image from a webcam and then have a neural network do training or inference right in the web browser
+without needing to send that image up to the cloud to be processed by a server.</p>
+<h2 id="overview">Overview:</h2>
+<ul>
+<li><a href="#design-and-architecture-of-tensorFlow-js">Design and Architecture of TensorFlow.js</a>
+<ul>
+<li><a href="#y-equals-2x-1">y equals 2x-1</a></li>
+<li><a href="#iris-dataset">Iris dataset</a></li>
+</ul>
+</li>
+<li><a href="#image-classification-in-the-browser">Image Classification in the Browser</a>
+<ul>
+<li><a href="#handwriting-classifier">Handwriting Classifier</a></li>
+</ul>
+</li>
+<li><a href="#converting-models-to-json-format">Converting Models to JSON Format</a>
+<ul>
+<li><a href="#toxicity-classifier">Toxicity Classifier</a></li>
+<li><a href="#image-classification-using-mobilenet">Image classification using Mobilenet</a></li>
+<li><a href="#models-to-json">Models to JSON</a></li>
+</ul>
+</li>
+<li><a href="#transfer-learning-with-pre-trained-models">Transfer Learning with Pre-Trained Models</a>
+<ul>
+<li><a href="#recognize-rock-paper-scissors-lizard-and-spoke-gestures">Recognize rock, paper, scissors, lizard and spoke gestures</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="design-and-architecture-of-tensorflowjs">Design and Architecture of TensorFlow.js</h2>
+<p><img src="tensorflow-js-architecture.png" alt="tensorflow-js-architecture"></p>
+<p>The low-level APIs are called the core APIs. The Core API then works with the browser and can take
+advantage of WebGL for accelerated training and inference. Also on Node.js, we can build server-side or
+terminal applications using it. These can then take advantage of CPUs, GPUs, and TPUs depending on what's
+available to our machine.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Here’s the code to use Tensoflow.js ..
+</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div><h3 id="y-equals-2x-1">y equals 2x-1</h3>
+<p>We're going to build a model that infers the relationship between two numbers where y equals 2x minus 1
+( y = 2x − 1 ). So let's do that now in JavaScript</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">head</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;js&#34;</span><span style="color:#f92672">&gt;</span>
+<span style="color:#75715e">// Training should be an asynchronous function because it will take an indeterminate time to complete.
+</span><span style="color:#75715e"></span><span style="color:#75715e">// We don&#39;t want to block the browser while this is going on.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doTraining</span>(<span style="color:#a6e22e">model</span>){
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">history</span> <span style="color:#f92672">=</span>
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">fit</span>(<span style="color:#a6e22e">xs</span>, <span style="color:#a6e22e">ys</span>,
+{ <span style="color:#a6e22e">epochs</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span>,
+<span style="color:#a6e22e">callbacks</span><span style="color:#f92672">:</span>{
+<span style="color:#a6e22e">onEpochEnd</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">async</span>(<span style="color:#a6e22e">epoch</span>, <span style="color:#a6e22e">logs</span>) =&gt;{<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Epoch:&#34;</span><span style="color:#f92672">+</span> <span style="color:#a6e22e">epoch</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; Loss:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">loss</span>);}
+}
+});
+}
+<span style="color:#75715e">// This code will define model. Model is sequential
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">sequential</span>();
+ <span style="color:#75715e">// The simplest possible neural network is one layer with one neuron.
+</span><span style="color:#75715e"></span><span style="color:#75715e">//So we&#39;re only adding one dense layer
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">to</span> <span style="color:#a6e22e">our</span> <span style="color:#a6e22e">sequence</span>.
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">dense</span>({<span style="color:#a6e22e">units</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">inputShape</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">1</span>]}));
+<span style="color:#75715e">// We then compiled a neural network with a loss function and an optimizer. The loss function is Mean Squared
+</span><span style="color:#75715e"></span>Error, <span style="color:#a6e22e">which</span> <span style="color:#a6e22e">works</span> <span style="color:#a6e22e">really</span> <span style="color:#a6e22e">well</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">linear</span> <span style="color:#a6e22e">relationship</span>
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">compile</span>({<span style="color:#a6e22e">loss</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;meanSquaredError&#39;</span>,
+<span style="color:#a6e22e">optimizer</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;sgd&#39;</span>});
+ <span style="color:#75715e">// Outputs the summary of the model definition for us. We can see this in the console outputs.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">summary</span>();
+<span style="color:#75715e">// This is the data that we use to train the neural network. Tensor 2D has two one-dimensional arrays.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Training</span> <span style="color:#a6e22e">values</span> <span style="color:#a6e22e">are</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">one</span> <span style="color:#a6e22e">array</span>, <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">second</span> <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">shape</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">those</span> <span style="color:#a6e22e">training</span> <span style="color:#a6e22e">values</span>.
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tensor2d</span>([<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">4.0</span>], [<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">1</span>]);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ys</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tensor2d</span>([<span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">5.0</span>, <span style="color:#ae81ff">7.0</span>], [<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">1</span>]);
+<span style="color:#75715e">// Trining starts here
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">doTraining</span>(<span style="color:#a6e22e">model</span>).<span style="color:#a6e22e">then</span>(() =&gt; {
+<span style="color:#75715e">// Once model trained.This is the prediction part. We can see alert message at our browser.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tensor2d</span>([<span style="color:#ae81ff">10</span>], [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>])));
+});
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h1</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">First</span> <span style="color:#a6e22e">HTML</span> <span style="color:#a6e22e">Page</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">1</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div><h3 id="iris-dataset">Iris dataset</h3>
+<p>In previous example, data as numbers and arrays in memory. But more common scenarios are, data comes
+in from somewhere else, maybe a database connection or an imported dataset. In this example, we are
+going to read data from CSV files <a href="https://archive.ics.uci.edu/ml/datasets/iris">Iris dataset</a>. TensorFlow.js gives us some tools that makes this much
+easier.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">head</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;js&#34;</span><span style="color:#f92672">&gt;</span>
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span>(){
+<span style="color:#75715e">// Use webserver to load data file. Change the URL accordingly.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">csvUrl</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;iris.csv&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">trainingData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">csv</span>(<span style="color:#a6e22e">csvUrl</span>, {
+<span style="color:#a6e22e">columnConfigs</span><span style="color:#f92672">:</span> {
+<span style="color:#75715e">// Specify which column should be treated as label. Here &#34;species&#34;.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">species</span><span style="color:#f92672">:</span> {
+<span style="color:#a6e22e">isLabel</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+}
+}
+});
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">numOfFeatures</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">trainingData</span>.<span style="color:#a6e22e">columnNames</span>()).<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">numOfSamples</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">150</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">convertedData</span> <span style="color:#f92672">=</span>
+<span style="color:#a6e22e">trainingData</span>.<span style="color:#a6e22e">map</span>(({<span style="color:#a6e22e">xs</span>, <span style="color:#a6e22e">ys</span>}) =&gt; {
+<span style="color:#75715e">// Convert the strings defined in the labels into a one hot encoded array of label values.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">labels</span> <span style="color:#f92672">=</span> [
+<span style="color:#a6e22e">ys</span>.<span style="color:#a6e22e">species</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;setosa&#34;</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+<span style="color:#a6e22e">ys</span>.<span style="color:#a6e22e">species</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;virginica&#34;</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+<span style="color:#a6e22e">ys</span>.<span style="color:#a6e22e">species</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;versicolor&#34;</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>
+]
+<span style="color:#66d9ef">return</span>{ <span style="color:#a6e22e">xs</span><span style="color:#f92672">:</span> Object.<span style="color:#a6e22e">values</span>(<span style="color:#a6e22e">xs</span>), <span style="color:#a6e22e">ys</span><span style="color:#f92672">:</span> Object.<span style="color:#a6e22e">values</span>(<span style="color:#a6e22e">labels</span>)};
+}).<span style="color:#a6e22e">batch</span>(<span style="color:#ae81ff">10</span>);
+<span style="color:#ae81ff">6</span>
+<span style="color:#75715e">// This code will define model. Model is sequential.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">sequential</span>();
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">dense</span>({<span style="color:#a6e22e">inputShape</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">numOfFeatures</span>], <span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;sigmoid&#34;</span>, <span style="color:#a6e22e">units</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>}))
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">dense</span>({<span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;softmax&#34;</span>, <span style="color:#a6e22e">units</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>}));
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">compile</span>({<span style="color:#a6e22e">loss</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;categoricalCrossentropy&#34;</span>, <span style="color:#a6e22e">optimizer</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">train</span>.<span style="color:#a6e22e">adam</span>(<span style="color:#ae81ff">0.06</span>)});
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">fitDataset</span>(<span style="color:#a6e22e">convertedData</span>,
+{<span style="color:#a6e22e">epochs</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>,
+<span style="color:#a6e22e">callbacks</span><span style="color:#f92672">:</span>{
+<span style="color:#a6e22e">onEpochEnd</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">async</span>(<span style="color:#a6e22e">epoch</span>, <span style="color:#a6e22e">logs</span>) =&gt;{
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Epoch: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">epoch</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; Loss: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">loss</span>);
+}
+}});
+<span style="color:#75715e">// Test Cases:
+</span><span style="color:#75715e"></span><span style="color:#75715e">// Setosa
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">testVal</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tensor2d</span>([<span style="color:#ae81ff">4.4</span>, <span style="color:#ae81ff">2.9</span>, <span style="color:#ae81ff">1.4</span>, <span style="color:#ae81ff">0.2</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>]);
+<span style="color:#75715e">// Versicolor
+</span><span style="color:#75715e"></span><span style="color:#75715e">// const testVal = tf.tensor2d([6.4, 3.2, 4.5, 1.5], [1, 4]);
+</span><span style="color:#75715e"></span><span style="color:#75715e">// Virginica
+</span><span style="color:#75715e"></span><span style="color:#75715e">// const testVal = tf.tensor2d([5.8,2.7,5.1,1.9], [1, 4]);
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prediction</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">testVal</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">argMax</span>(<span style="color:#a6e22e">prediction</span>, <span style="color:#a6e22e">axis</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">dataSync</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">classNames</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;Setosa&#34;</span>, <span style="color:#e6db74">&#34;Virginica&#34;</span>, <span style="color:#e6db74">&#34;Versicolor&#34;</span>];
+<span style="color:#75715e">// alert(prediction)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">classNames</span>[<span style="color:#a6e22e">pIndex</span>])
+}
+<span style="color:#a6e22e">run</span>();
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div><h2 id="image-classification-in-the-browser">Image Classification in the Browser</h2>
+<p>We started to learn the basics of the foundations of TensorFlow js syntax and saw how we can use it to
+write code that runs in a web browser. We'll look at Computer Vision problems, including some of the
+unique considerations when using JavaScript, such as handling thousands of images for training(using Sprite
+sheet). By the end of this module we will know how to build a site that lets you draw in the browser and
+recognizes your handwritten digits using convolutional neural networks. Also we’ll look at tf-vis to visualize
+the output of callbacks.<br>
+Note :: Use tf.tidy() in TensorFlow.js. It cleans up intermediate tensors allocated by a function except those
+return by a function.</p>
+<h3 id="example---handwriting-classifier">Example - Handwriting Classifier</h3>
+<p>data.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">IMAGE_SIZE</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">784</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NUM_CLASSES</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NUM_DATASET_ELEMENTS</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">65000</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TRAIN_TEST_RATIO</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">6</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NUM_TRAIN_ELEMENTS</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">TRAIN_TEST_RATIO</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_DATASET_ELEMENTS</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NUM_TEST_ELEMENTS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NUM_DATASET_ELEMENTS</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">NUM_TRAIN_ELEMENTS</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MNIST_IMAGES_SPRITE_PATH</span> <span style="color:#f92672">=</span>
+<span style="color:#e6db74">&#39;https://storage.googleapis.com/learnjs-data/model-builder/mnist_images.png&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MNIST_LABELS_PATH</span> <span style="color:#f92672">=</span>
+<span style="color:#e6db74">&#39;https://storage.googleapis.com/learnjs-data/model-builder/mnist_labels_uint8&#39;</span>;
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">* A class that fetches the sprited MNIST dataset and returns shuffled batches.
+</span><span style="color:#75715e">*
+</span><span style="color:#75715e">* NOTE: This will get much easier. For now, we do data fetching and
+</span><span style="color:#75715e">* manipulation manually.
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MnistData</span> {
+<span style="color:#a6e22e">constructor</span>() {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTrainIndex</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTestIndex</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">load</span>() {
+<span style="color:#75715e">// Make a request for the MNIST sprited image.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">img</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Image</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;canvas&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#39;2d&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">imgRequest</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">crossOrigin</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>;
+<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> () =&gt; {
+<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">naturalWidth</span>;
+<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">naturalHeight</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">datasetBytesBuffer</span> <span style="color:#f92672">=</span>
+<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArrayBuffer</span>(<span style="color:#a6e22e">NUM_DATASET_ELEMENTS</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">IMAGE_SIZE</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chunkSize</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>;
+<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">width</span>;
+<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">chunkSize</span>;
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">NUM_DATASET_ELEMENTS</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">chunkSize</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">datasetBytesView</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(
+<span style="color:#a6e22e">datasetBytesBuffer</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">IMAGE_SIZE</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">chunkSize</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>,
+ <span style="color:#a6e22e">IMAGE_SIZE</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">chunkSize</span>);
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">drawImage</span>(
+<span style="color:#a6e22e">img</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">chunkSize</span>, <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">chunkSize</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">width</span>,
+<span style="color:#a6e22e">chunkSize</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">imageData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">getImageData</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">height</span>);
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">imageData</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">4</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>) {
+<span style="color:#75715e">// All channels hold an equal value since the image is grayscale, so
+</span><span style="color:#75715e"></span><span style="color:#75715e">// just read the red channel.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">datasetBytesView</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">imageData</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">j</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">255</span>;
+}
+}
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">datasetImages</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">datasetBytesBuffer</span>);
+<span style="color:#a6e22e">resolve</span>();
+};
+<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MNIST_IMAGES_SPRITE_PATH</span>;
+ });
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">labelsRequest</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">MNIST_LABELS_PATH</span>);
+<span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">imgResponse</span>, <span style="color:#a6e22e">labelsResponse</span>] <span style="color:#f92672">=</span>
+<span style="color:#a6e22e">await</span> Promise.<span style="color:#a6e22e">all</span>([<span style="color:#a6e22e">imgRequest</span>, <span style="color:#a6e22e">labelsRequest</span>]);
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">datasetLabels</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">labelsResponse</span>.<span style="color:#a6e22e">arrayBuffer</span>());
+<span style="color:#75715e">// Create shuffled indices into the train/test set for when we select a
+</span><span style="color:#75715e"></span><span style="color:#75715e">// random dataset element for training / validation.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">trainIndices</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">util</span>.<span style="color:#a6e22e">createShuffledIndices</span>(<span style="color:#a6e22e">NUM_TRAIN_ELEMENTS</span>);
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testIndices</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">util</span>.<span style="color:#a6e22e">createShuffledIndices</span>(<span style="color:#a6e22e">NUM_TEST_ELEMENTS</span>);
+<span style="color:#75715e">// Slice the the images and labels into train and test sets.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">trainImages</span> <span style="color:#f92672">=</span>
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">datasetImages</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">IMAGE_SIZE</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_TRAIN_ELEMENTS</span>);
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testImages</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">datasetImages</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">IMAGE_SIZE</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_TRAIN_ELEMENTS</span>);
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">trainLabels</span> <span style="color:#f92672">=</span>
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">datasetLabels</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">NUM_CLASSES</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_TRAIN_ELEMENTS</span>);
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testLabels</span> <span style="color:#f92672">=</span>
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">datasetLabels</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">NUM_CLASSES</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_TRAIN_ELEMENTS</span>);
+}
+<span style="color:#a6e22e">nextTrainBatch</span>(<span style="color:#a6e22e">batchSize</span>) {
+<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextBatch</span>(
+<span style="color:#a6e22e">batchSize</span>, [<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">trainImages</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">trainLabels</span>], () =&gt; {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTrainIndex</span> <span style="color:#f92672">=</span>
+(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTrainIndex</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">trainIndices</span>.<span style="color:#a6e22e">length</span>;
+<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">trainIndices</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTrainIndex</span>];
+});
+}
+<span style="color:#a6e22e">nextTestBatch</span>(<span style="color:#a6e22e">batchSize</span>) {
+<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextBatch</span>(<span style="color:#a6e22e">batchSize</span>, [<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testImages</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testLabels</span>], () =&gt; {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTestIndex</span> <span style="color:#f92672">=</span>
+(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTestIndex</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testIndices</span>.<span style="color:#a6e22e">length</span>;
+<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">testIndices</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">shuffledTestIndex</span>];
+});
+}
+<span style="color:#a6e22e">nextBatch</span>(<span style="color:#a6e22e">batchSize</span>, <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">index</span>) {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">batchImagesArray</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Float32Array</span>(<span style="color:#a6e22e">batchSize</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">IMAGE_SIZE</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">batchLabelsArray</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">batchSize</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_CLASSES</span>);
+ <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">batchSize</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">index</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">image</span> <span style="color:#f92672">=</span>
+<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">idx</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">IMAGE_SIZE</span>, <span style="color:#a6e22e">idx</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">IMAGE_SIZE</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">IMAGE_SIZE</span>);
+<span style="color:#a6e22e">batchImagesArray</span>.<span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">image</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">IMAGE_SIZE</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">label</span> <span style="color:#f92672">=</span>
+<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">slice</span>(<span style="color:#a6e22e">idx</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_CLASSES</span>, <span style="color:#a6e22e">idx</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_CLASSES</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">NUM_CLASSES</span>);
+<span style="color:#a6e22e">batchLabelsArray</span>.<span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">label</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">NUM_CLASSES</span>);
+}
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tensor2d</span>(<span style="color:#a6e22e">batchImagesArray</span>, [<span style="color:#a6e22e">batchSize</span>, <span style="color:#a6e22e">IMAGE_SIZE</span>]);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">labels</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tensor2d</span>(<span style="color:#a6e22e">batchLabelsArray</span>, [<span style="color:#a6e22e">batchSize</span>, <span style="color:#a6e22e">NUM_CLASSES</span>]);
+ <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">xs</span>, <span style="color:#a6e22e">labels</span>};
+}
+}
+</code></pre></div><p>script.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">MnistData</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./data.js&#39;</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canvas</span>, <span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">saveButton</span>, <span style="color:#a6e22e">clearButton</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pos</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">y</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span>};
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rawImage</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">model</span>;
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getModel</span>() {
+<span style="color:#a6e22e">model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">sequential</span>();
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">conv2d</span>({<span style="color:#a6e22e">inputShape</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">kernelSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">filters</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">8</span>, <span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;relu&#39;</span>}));
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">maxPooling2d</span>({<span style="color:#a6e22e">poolSize</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>]}));
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">conv2d</span>({<span style="color:#a6e22e">filters</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">16</span>, <span style="color:#a6e22e">kernelSize</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;relu&#39;</span>}));
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">maxPooling2d</span>({<span style="color:#a6e22e">poolSize</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>]}));
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">flatten</span>());
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">dense</span>({<span style="color:#a6e22e">units</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">128</span>, <span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;relu&#39;</span>}));
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">dense</span>({<span style="color:#a6e22e">units</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;softmax&#39;</span>}));
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">compile</span>({<span style="color:#a6e22e">optimizer</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">train</span>.<span style="color:#a6e22e">adam</span>(), <span style="color:#a6e22e">loss</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;categoricalCrossentropy&#39;</span>, <span style="color:#a6e22e">metrics</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;accuracy&#39;</span>]});
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">model</span>;
+}
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">train</span>(<span style="color:#a6e22e">model</span>, <span style="color:#a6e22e">data</span>) {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">metrics</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;loss&#39;</span>, <span style="color:#e6db74">&#39;val_loss&#39;</span>, <span style="color:#e6db74">&#39;acc&#39;</span>, <span style="color:#e6db74">&#39;val_acc&#39;</span>];
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Model Training&#39;</span>, <span style="color:#a6e22e">styles</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;640px&#39;</span> } };
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fitCallbacks</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tfvis</span>.<span style="color:#a6e22e">show</span>.<span style="color:#a6e22e">fitCallbacks</span>(<span style="color:#a6e22e">container</span>, <span style="color:#a6e22e">metrics</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BATCH_SIZE</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TRAIN_DATA_SIZE</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5500</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TEST_DATA_SIZE</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;
+<span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">trainXs</span>, <span style="color:#a6e22e">trainYs</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tidy</span>(() =&gt; {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">nextTrainBatch</span>(<span style="color:#a6e22e">TRAIN_DATA_SIZE</span>);
+<span style="color:#66d9ef">return</span> [
+<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">xs</span>.<span style="color:#a6e22e">reshape</span>([<span style="color:#a6e22e">TRAIN_DATA_SIZE</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">1</span>]),
+<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">labels</span>
+];
+});
+<span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">testXs</span>, <span style="color:#a6e22e">testYs</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tidy</span>(() =&gt; {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">nextTestBatch</span>(<span style="color:#a6e22e">TEST_DATA_SIZE</span>);
+<span style="color:#66d9ef">return</span> [
+<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">xs</span>.<span style="color:#a6e22e">reshape</span>([<span style="color:#a6e22e">TEST_DATA_SIZE</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">1</span>]),
+<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">labels</span>
+];
+});
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">fit</span>(<span style="color:#a6e22e">trainXs</span>, <span style="color:#a6e22e">trainYs</span>, {
+<span style="color:#a6e22e">batchSize</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">BATCH_SIZE</span>,
+<span style="color:#a6e22e">validationData</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">testXs</span>, <span style="color:#a6e22e">testYs</span>],
+<span style="color:#a6e22e">epochs</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">20</span>,
+<span style="color:#a6e22e">shuffle</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+<span style="color:#a6e22e">callbacks</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">fitCallbacks</span>
+});
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setPosition</span>(<span style="color:#a6e22e">e</span>){
+<span style="color:#a6e22e">pos</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">clientX</span><span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>;
+<span style="color:#a6e22e">pos</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">clientY</span><span style="color:#f92672">-</span><span style="color:#ae81ff">100</span>;
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">draw</span>(<span style="color:#a6e22e">e</span>) {
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">buttons</span><span style="color:#f92672">!=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span>;
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">beginPath</span>();
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">lineWidth</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>;
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">lineCap</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;round&#39;</span>;
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">strokeStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;white&#39;</span>;
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">moveTo</span>(<span style="color:#a6e22e">pos</span>.<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">pos</span>.<span style="color:#a6e22e">y</span>);
+<span style="color:#a6e22e">setPosition</span>(<span style="color:#a6e22e">e</span>);
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">lineTo</span>(<span style="color:#a6e22e">pos</span>.<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">pos</span>.<span style="color:#a6e22e">y</span>);
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">stroke</span>();
+<span style="color:#a6e22e">rawImage</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">toDataURL</span>(<span style="color:#e6db74">&#39;image/png&#39;</span>);
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">erase</span>() {
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>;
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillRect</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">280</span>,<span style="color:#ae81ff">280</span>);
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">save</span>() {
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">raw</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">fromPixels</span>(<span style="color:#a6e22e">rawImage</span>,<span style="color:#ae81ff">1</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">resized</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">image</span>.<span style="color:#a6e22e">resizeBilinear</span>(<span style="color:#a6e22e">raw</span>, [<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">28</span>]);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tensor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resized</span>.<span style="color:#a6e22e">expandDims</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">prediction</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">tensor</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">argMax</span>(<span style="color:#a6e22e">prediction</span>, <span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">dataSync</span>();
+<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">pIndex</span>);
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">init</span>() {
+<span style="color:#a6e22e">canvas</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;canvas&#39;</span>);
+<span style="color:#a6e22e">rawImage</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;canvasimg&#39;</span>);
+<span style="color:#a6e22e">ctx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">getContext</span>(<span style="color:#e6db74">&#34;2d&#34;</span>);
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>;
+<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillRect</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">280</span>,<span style="color:#ae81ff">280</span>);
+<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mousemove&#34;</span>, <span style="color:#a6e22e">draw</span>);
+<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mousedown&#34;</span>, <span style="color:#a6e22e">setPosition</span>);
+<span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;mouseenter&#34;</span>, <span style="color:#a6e22e">setPosition</span>);
+<span style="color:#a6e22e">saveButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;sb&#39;</span>);
+<span style="color:#a6e22e">saveButton</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">save</span>);
+<span style="color:#a6e22e">clearButton</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;cb&#39;</span>);
+<span style="color:#a6e22e">clearButton</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">erase</span>);
+}
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span>() {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MnistData</span>();
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">load</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getModel</span>();
+<span style="color:#a6e22e">tfvis</span>.<span style="color:#a6e22e">show</span>.<span style="color:#a6e22e">modelSummary</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Model Architecture&#39;</span>}, <span style="color:#a6e22e">model</span>);
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">train</span>(<span style="color:#a6e22e">model</span>, <span style="color:#a6e22e">data</span>);
+<span style="color:#a6e22e">init</span>();
+<span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;Training is done, try classifying your handwriting!&#34;</span>);
+}
+document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;DOMContentLoaded&#39;</span>, <span style="color:#a6e22e">run</span>);
+</code></pre></div><p>mnist.html</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">head</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h1</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Handwriting</span> <span style="color:#a6e22e">Classifier</span><span style="color:#f92672">!</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">1</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">canvas</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;canvas&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;280&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;280&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;position:absolute;top:100;left:100;border:8px
+</span><span style="color:#e6db74">solid;&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;canvasimg&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;position:absolute;top:10%;left:52%;width=280;height=280;display:none;&#34;</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;classify&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sb&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;48&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;position:absolute;top:400;left:100;&#34;</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clear&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cb&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;23&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;position:absolute;top:400;left:180;&#34;</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;data.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;script.js&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div><h2 id="converting-models-to-json-format">Converting Models to JSON Format</h2>
+<p>We'll see how to take models that have been created with TensorFlow in Python and convert them to JSON
+format(using tensorflowjs converter) so that they can run in the browser using Javascript. We will start by
+looking at two models that have already been pre-converted. One of them is going to be a toxicity classifier,
+which uses NLP to determine if a phrase is toxic in a number of categories. The other one is Mobilenet
+which can be used to detect content in images. All of the inferences are then done locally, which is really
+cool for privacy and saving round tripping and all that.</p>
+<h3 id="toxicity-classifier">Toxicity Classifier</h3>
+<p>Pre-trained toxicity classifier model available <a href="https://github.com/tensorflow/tfjs-models/tree/master/toxicity">here</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">head</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">threshold</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9</span>;
+<span style="color:#a6e22e">toxicity</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">threshold</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">model</span> =&gt; {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sentences</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;you suck&#39;</span>];
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">classify</span>(<span style="color:#a6e22e">sentences</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">predictions</span> =&gt; {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">predictions</span>);
+<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">7</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">predictions</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">results</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">match</span>){
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">predictions</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">label</span> <span style="color:#f92672">+</span>
+<span style="color:#e6db74">&#34; was found with probability of &#34;</span> <span style="color:#f92672">+</span>
+<span style="color:#a6e22e">predictions</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">results</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">probabilities</span>[<span style="color:#ae81ff">1</span>]);
+}
+}
+});
+});
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div><h3 id="image-classification-using-mobilenet">Image classification using Mobilenet</h3>
+<p>Mobilenet - Recent neural network architectures that was designed to run on mobile devices and on web
+browsers and low compute resource environments. We can see a list of classes supported by Mobilenet <a href="http://www.laurencemoroney.com/wp-content/uploads/2019/04/labels.txt">here</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">head</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0&#34;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">img</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;img&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;coffee.jpg&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;output&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-family:courier;font-size:24px;height=300px&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">img</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;img&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">outp</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;output&#39;</span>);
+<span style="color:#a6e22e">mobilenet</span>.<span style="color:#a6e22e">load</span>().<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">model</span> =&gt; {
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">classify</span>(<span style="color:#a6e22e">img</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">predictions</span> =&gt; {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">predictions</span>);
+<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">predictions</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+<span style="color:#a6e22e">outp</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;&lt;br/&gt;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">predictions</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">className</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; : &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">predictions</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">probability</span>;
+}
+});
+});
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div><h3 id="models-to-json">Models to JSON</h3>
+<p>linear.py</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#960050;background-color:#1e0010">!</span>pip install tensorflowjs
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> tensorflow <span style="color:#f92672">as</span> tf
+<span style="color:#f92672">import</span> time
+model <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>Sequential([
+tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(units<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, input_shape<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>])
+])
+model<span style="color:#f92672">.</span>compile(optimizer<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sgd</span><span style="color:#e6db74">&#39;</span>, loss<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mean_squared_error</span><span style="color:#e6db74">&#39;</span>)
+xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">4.0</span>], dtype<span style="color:#f92672">=</span>float)
+ys <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">5.0</span>, <span style="color:#ae81ff">7.0</span>], dtype<span style="color:#f92672">=</span>float)
+model<span style="color:#f92672">.</span>fit(xs, ys, epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>)
+saved_model_path <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">./{}.h5</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(int(time<span style="color:#f92672">.</span>time()))
+model<span style="color:#f92672">.</span>save(saved_model_path)
+<span style="color:#960050;background-color:#1e0010">!</span>tensorflowjs_converter <span style="color:#f92672">-</span><span style="color:#f92672">-</span>input_format<span style="color:#f92672">=</span>keras {saved_model_path} <span style="color:#f92672">.</span><span style="color:#f92672">/</span>
+</code></pre></div><p>linear.html</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">head</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span>(){
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MODEL_URL</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://127.0.0.1:8887/model.json&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">loadLayersModel</span>(<span style="color:#a6e22e">MODEL_URL</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">summary</span>());
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tensor2d</span>([<span style="color:#ae81ff">10.0</span>], [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>]);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">input</span>);
+<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">result</span>)
+}
+<span style="color:#a6e22e">run</span>();
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div><h2 id="transfer-learning-with-pre-trained-models">Transfer Learning with Pre-Trained Models</h2>
+<p>We'll build a complete web site that uses TensorFlow.js, capturing data from the webcam, and re-training
+mobilenet to recognize Rock, Paper, Scissors, lizard and spoke gestures.</p>
+<h3 id="recognize-rock-paper-scissors-lizard-and-spoke-gestures">Recognize rock-paper-scissors-lizard-and-spoke gestures</h3>
+<p>Rock, Paper, Scissors, lizard, and spoke gestures <a href="https://the-big-bang-theory.com/rock-paper-scissors-lizard-spock/">(the-big-bang-theory)</a></p>
+<p><img src="gestures.png" alt="gestures.png"></p>
+<p>webcam.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Webcam</span> {
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">* @param {HTMLVideoElement} webcamElement A HTMLVideoElement representing the
+</span><span style="color:#75715e">* webcam feed.
+</span><span style="color:#75715e">*/</span>
+<span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">webcamElement</span>) {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">webcamElement</span>;
+}
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">* Captures a frame from the webcam and normalizes it between -1 and 1.
+</span><span style="color:#75715e">* Returns a batched image (1-element batch) of shape [1, w, h, c].
+</span><span style="color:#75715e">*/</span>
+<span style="color:#a6e22e">capture</span>() {
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tidy</span>(() =&gt; {
+<span style="color:#75715e">// Reads the image as a Tensor from the webcam &lt;video&gt; element.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">webcamImage</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">fromPixels</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reversedImage</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">webcamImage</span>.<span style="color:#a6e22e">reverse</span>(<span style="color:#ae81ff">1</span>);
+<span style="color:#75715e">// Crop the image so we&#39;re using the center square of the rectangular
+</span><span style="color:#75715e"></span><span style="color:#75715e">// webcam.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">croppedImage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">cropImage</span>(<span style="color:#a6e22e">reversedImage</span>);
+<span style="color:#75715e">// Expand the outer most dimension so we have a batch size of 1.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">batchedImage</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">croppedImage</span>.<span style="color:#a6e22e">expandDims</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#75715e">// Normalize the image between -1 and 1. The image comes in between 0-255,
+</span><span style="color:#75715e"></span><span style="color:#75715e">// so we divide by 127 and subtract 1.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">return</span> <span style="color:#a6e22e">batchedImage</span>.<span style="color:#a6e22e">toFloat</span>().<span style="color:#a6e22e">div</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">scalar</span>(<span style="color:#ae81ff">127</span>)).<span style="color:#a6e22e">sub</span>(<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">scalar</span>(<span style="color:#ae81ff">1</span>));
+});
+}
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">* Crops an image tensor so we get a square image with no white space.
+</span><span style="color:#75715e">* @param {Tensor4D} img An input image Tensor to crop.
+</span><span style="color:#75715e">*/</span>
+<span style="color:#a6e22e">cropImage</span>(<span style="color:#a6e22e">img</span>) {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">size</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">min</span>(<span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">shape</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">shape</span>[<span style="color:#ae81ff">1</span>]);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">centerHeight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">shape</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">beginHeight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">centerHeight</span> <span style="color:#f92672">-</span> (<span style="color:#a6e22e">size</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">centerWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">shape</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">beginWidth</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">centerWidth</span> <span style="color:#f92672">-</span> (<span style="color:#a6e22e">size</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>);
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">slice</span>([<span style="color:#a6e22e">beginHeight</span>, <span style="color:#a6e22e">beginWidth</span>, <span style="color:#ae81ff">0</span>], [<span style="color:#a6e22e">size</span>, <span style="color:#a6e22e">size</span>, <span style="color:#ae81ff">3</span>]);
+}
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">* Adjusts the video size so we can make a centered square crop without
+</span><span style="color:#75715e">* including whitespace.
+</span><span style="color:#75715e">* @param {number} width The real width of the video element.
+</span><span style="color:#75715e">* @param {number} height The real height of the video element.
+</span><span style="color:#75715e">*/</span>
+<span style="color:#a6e22e">adjustVideoSize</span>(<span style="color:#a6e22e">width</span>, <span style="color:#a6e22e">height</span>) {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">aspectRatio</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">width</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">height</span>;
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">width</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">height</span>) {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">aspectRatio</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">height</span>;
+} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">width</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">height</span>) {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">aspectRatio</span>;
+}
+}
+<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">setup</span>() {
+<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+<span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">getUserMedia</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">getUserMedia</span> <span style="color:#f92672">||</span>
+<span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">webkitGetUserMedia</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">mozGetUserMedia</span> <span style="color:#f92672">||</span>
+<span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">msGetUserMedia</span>;
+<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">getUserMedia</span>) {
+<span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">getUserMedia</span>(
+{<span style="color:#a6e22e">video</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">width</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">224</span>, <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">224</span>}},
+<span style="color:#a6e22e">stream</span> =&gt; {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">srcObject</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream</span>;
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;loadeddata&#39;</span>, <span style="color:#a6e22e">async</span> () =&gt; {
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">adjustVideoSize</span>(
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">videoWidth</span>,
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webcamElement</span>.<span style="color:#a6e22e">videoHeight</span>);
+<span style="color:#a6e22e">resolve</span>();
+}, <span style="color:#66d9ef">false</span>);
+},
+<span style="color:#a6e22e">error</span> =&gt; {
+<span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">error</span>);
+});
+} <span style="color:#66d9ef">else</span> {
+<span style="color:#a6e22e">reject</span>();
+}
+});
+}
+}
+</code></pre></div><p>index_exercise.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mobilenet</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">model</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">webcam</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Webcam</span>(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;wc&#39;</span>));
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dataset</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">RPSDataset</span>();
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rockSamples</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">paperSamples</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">scissorsSamples</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">spockSamples</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">lizardSamples</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isPredicting</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadMobilenet</span>() {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mobilenet</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span>
+<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">loadLayersModel</span>(<span style="color:#e6db74">&#39;https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_1.0_224/model.json&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">layer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mobilenet</span>.<span style="color:#a6e22e">getLayer</span>(<span style="color:#e6db74">&#39;conv_pw_13_relu&#39;</span>);
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">model</span>({<span style="color:#a6e22e">inputs</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">mobilenet</span>.<span style="color:#a6e22e">inputs</span>, <span style="color:#a6e22e">outputs</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">layer</span>.<span style="color:#a6e22e">output</span>});
+}
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">train</span>() {
+<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">ys</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">encodeLabels</span>(<span style="color:#ae81ff">5</span>);
+<span style="color:#75715e">// In the space below create a neural network that can classify hand gestures
+</span><span style="color:#75715e"></span><span style="color:#75715e">// corresponding to rock, paper, scissors, lizard, and spock. The first layer
+</span><span style="color:#75715e"></span><span style="color:#75715e">// of your network should be a flatten layer that takes as input the output
+</span><span style="color:#75715e"></span><span style="color:#75715e">// from the pre-trained MobileNet model. Since we have 5 classes, your output
+</span><span style="color:#75715e"></span><span style="color:#75715e">// layer should have 5 units and a softmax activation function. You are free
+</span><span style="color:#75715e"></span><span style="color:#75715e">// to use as many hidden layers and neurons as you like.
+</span><span style="color:#75715e"></span><span style="color:#75715e">// HINT: Take a look at the Rock-Paper-Scissors example. We also suggest
+</span><span style="color:#75715e"></span><span style="color:#75715e">// using ReLu activation functions where applicable.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">sequential</span>({
+<span style="color:#a6e22e">layers</span><span style="color:#f92672">:</span> [
+<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">flatten</span>({<span style="color:#a6e22e">inputShape</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">mobilenet</span>.<span style="color:#a6e22e">outputs</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">shape</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">1</span>)}),
+<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">dense</span>({ <span style="color:#a6e22e">units</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>, <span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;relu&#39;</span>}),
+<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">layers</span>.<span style="color:#a6e22e">dense</span>({ <span style="color:#a6e22e">units</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>, <span style="color:#a6e22e">activation</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;softmax&#39;</span>})
+]
+});
+<span style="color:#75715e">// Set the optimizer to be tf.train.adam() with a learning rate of 0.0001.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">optimizer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">train</span>.<span style="color:#a6e22e">adam</span>(<span style="color:#ae81ff">0.0001</span>)
+<span style="color:#75715e">// Compile the model using the categoricalCrossentropy loss, and
+</span><span style="color:#75715e"></span><span style="color:#75715e">// the optimizer you defined above.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">compile</span>({<span style="color:#a6e22e">optimizer</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">optimizer</span>, <span style="color:#a6e22e">loss</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;categoricalCrossentropy&#34;</span>});
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">loss</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">fit</span>(<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">xs</span>, <span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">ys</span>, {
+<span style="color:#a6e22e">epochs</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+<span style="color:#a6e22e">callbacks</span><span style="color:#f92672">:</span> {
+<span style="color:#a6e22e">onBatchEnd</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">batch</span>, <span style="color:#a6e22e">logs</span>) =&gt; {
+<span style="color:#a6e22e">loss</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">logs</span>.<span style="color:#a6e22e">loss</span>.<span style="color:#a6e22e">toFixed</span>(<span style="color:#ae81ff">5</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;LOSS: &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">loss</span>);
+}
+}
+});
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleButton</span>(<span style="color:#a6e22e">elem</span>){
+<span style="color:#66d9ef">switch</span>(<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">id</span>){
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">rockSamples</span><span style="color:#f92672">++</span>;
+document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;rocksamples&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Rock samples:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">rockSamples</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;1&#34;</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">paperSamples</span><span style="color:#f92672">++</span>;
+document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;papersamples&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Paper samples:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">paperSamples</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">scissorsSamples</span><span style="color:#f92672">++</span>;
+document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;scissorssamples&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Scissors samples:&#34;</span> <span style="color:#f92672">+</span>
+<span style="color:#a6e22e">scissorsSamples</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;3&#34;</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">spockSamples</span><span style="color:#f92672">++</span>;
+document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;spocksamples&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Spock samples:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">spockSamples</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#75715e">// Add a case for lizard samples.
+</span><span style="color:#75715e"></span><span style="color:#75715e">// HINT: Look at the previous cases.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;4&#34;</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">lizardSamples</span><span style="color:#f92672">++</span>;
+document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;lizardsamples&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lizardsamples samples:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">lizardSamples</span>;
+<span style="color:#66d9ef">break</span>;
+}
+<span style="color:#a6e22e">label</span> <span style="color:#f92672">=</span> parseInt(<span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">id</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">img</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">webcam</span>.<span style="color:#a6e22e">capture</span>();
+<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">addExample</span>(<span style="color:#a6e22e">mobilenet</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">img</span>), <span style="color:#a6e22e">label</span>);
+}
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">predict</span>() {
+<span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">isPredicting</span>) {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">predictedClass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tidy</span>(() =&gt; {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">img</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">webcam</span>.<span style="color:#a6e22e">capture</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">activation</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mobilenet</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">img</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">predictions</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">activation</span>);
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">predictions</span>.<span style="color:#a6e22e">as1D</span>().<span style="color:#a6e22e">argMax</span>();
+});
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">classId</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">predictedClass</span>.<span style="color:#a6e22e">data</span>())[<span style="color:#ae81ff">0</span>];
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">predictionText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+<span style="color:#66d9ef">switch</span>(<span style="color:#a6e22e">classId</span>){
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">predictionText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;I see Rock&#34;</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">predictionText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;I see Paper&#34;</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">predictionText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;I see Scissors&#34;</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">predictionText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;I see Spock&#34;</span>;
+<span style="color:#66d9ef">break</span>;
+<span style="color:#75715e">// Add a case for lizard samples.
+</span><span style="color:#75715e"></span><span style="color:#75715e">// HINT: Look at the previous cases.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+<span style="color:#a6e22e">predictionText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;I see lizard&#34;</span>;
+<span style="color:#66d9ef">break</span>;
+}
+document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;prediction&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">predictionText</span>;
+<span style="color:#a6e22e">predictedClass</span>.<span style="color:#a6e22e">dispose</span>();
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">nextFrame</span>();
+}
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doTraining</span>(){
+<span style="color:#a6e22e">train</span>();
+<span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;Training Done!&#34;</span>)
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">startPredicting</span>(){
+<span style="color:#a6e22e">isPredicting</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+<span style="color:#a6e22e">predict</span>();
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">stopPredicting</span>(){
+<span style="color:#a6e22e">isPredicting</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+<span style="color:#a6e22e">predict</span>();
+}
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">saveModel</span>(){
+<span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">save</span>(<span style="color:#e6db74">&#39;downloads://my_model&#39;</span>);
+}
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">init</span>(){
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">webcam</span>.<span style="color:#a6e22e">setup</span>();
+<span style="color:#a6e22e">mobilenet</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">loadMobilenet</span>();
+<span style="color:#a6e22e">tf</span>.<span style="color:#a6e22e">tidy</span>(() =&gt; <span style="color:#a6e22e">mobilenet</span>.<span style="color:#a6e22e">predict</span>(<span style="color:#a6e22e">webcam</span>.<span style="color:#a6e22e">capture</span>()));
+}
+<span style="color:#a6e22e">init</span>();
+</code></pre></div><p>rpsis.html</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">head</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest&#34;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;webcam.js&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rps-dataset.js&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">video</span> <span style="color:#a6e22e">autoplay</span> <span style="color:#a6e22e">playsinline</span> <span style="color:#a6e22e">muted</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wc&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;224&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;224&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleButton(this)&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Rock</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleButton(this)&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Paper</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleButton(this)&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Scissors</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleButton(this)&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Spock</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;4&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;handleButton(this)&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Lizard</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rocksamples&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Rock</span> <span style="color:#a6e22e">Samples</span><span style="color:#f92672">:</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;papersamples&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Paper</span> <span style="color:#a6e22e">Samples</span><span style="color:#f92672">:</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;scissorssamples&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Scissors</span> <span style="color:#a6e22e">Samples</span><span style="color:#f92672">:</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;spocksamples&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Spock</span> <span style="color:#a6e22e">Samples</span><span style="color:#f92672">:</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lizardsamples&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Lizard</span> <span style="color:#a6e22e">Samples</span><span style="color:#f92672">:</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;train&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;doTraining()&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Train</span> <span style="color:#a6e22e">Network</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dummy&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Once</span> <span style="color:#a6e22e">training</span> <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">complete</span>, <span style="color:#a6e22e">click</span> <span style="color:#e6db74">&#39;Start Predicting&#39;</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">see</span> <span style="color:#a6e22e">predictions</span>, <span style="color:#a6e22e">and</span> <span style="color:#e6db74">&#39;Stop Predicting&#39;</span>
+<span style="color:#a6e22e">to</span> <span style="color:#a6e22e">end</span>. <span style="color:#a6e22e">Once</span> <span style="color:#a6e22e">you</span> <span style="color:#a6e22e">are</span> <span style="color:#a6e22e">happy</span> <span style="color:#66d9ef">with</span> <span style="color:#a6e22e">your</span> <span style="color:#a6e22e">model</span>, <span style="color:#a6e22e">click</span> <span style="color:#e6db74">&#39;Download Model&#39;</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">save</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">model</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">your</span> <span style="color:#a6e22e">local</span> <span style="color:#a6e22e">disk</span>.<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;startPredicting&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;startPredicting()&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Start</span> <span style="color:#a6e22e">Predicting</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stopPredicting&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stopPredicting()&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Stop</span> <span style="color:#a6e22e">Predicting</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;saveModel&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;saveModel()&#34;</span> <span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Download</span> <span style="color:#a6e22e">Model</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;prediction&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index_exercise.js&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+</code></pre></div>
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/tensorflow">Tensorflow</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/tensorflow.js">Tensorflow.js</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/machine-learning">Machine Learning</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                        <a class="d-block col-md-6" href="https://pallaviramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/"> &laquo; Pulling Google Cloud Monitoring time-series data using python</a>
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-right" href="https://pallaviramicetty.github.io/blog/how-to-speak-by-patrick-winston/">How To Speak by Patrick Winston &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+            </div>
+  
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                &copy; Copyright Pallavi Ramicetty - All rights reserved
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" rel="noopener" href="https://www.wowthemes.net">Mediumish Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="/js/mediumish.js"></script>
+
+    </body>
+</html>
