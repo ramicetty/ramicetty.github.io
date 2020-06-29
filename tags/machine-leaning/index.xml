@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Federated Learning on Pallavi Ramicetty</title>
-    <link>https://pallaviramicetty.github.io/tags/federated-learning/</link>
-    <description>Recent content in Federated Learning on Pallavi Ramicetty</description>
+    <title>Machine Leaning on Pallavi Ramicetty</title>
+    <link>https://pallaviramicetty.github.io/tags/machine-leaning/</link>
+    <description>Recent content in Machine Leaning on Pallavi Ramicetty</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Pallavi Ramicetty - All rights reserved</copyright>
-    <lastBuildDate>Mon, 30 Mar 2020 07:03:48 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 04:15:10 +0530</lastBuildDate>
     
-	<atom:link href="https://pallaviramicetty.github.io/tags/federated-learning/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://pallaviramicetty.github.io/tags/machine-leaning/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>4 - Federated Learning</title>
-      <link>https://pallaviramicetty.github.io/blog/federated-learning/</link>
-      <pubDate>Mon, 30 Mar 2020 07:03:48 +0530</pubDate>
-      
-      <guid>https://pallaviramicetty.github.io/blog/federated-learning/</guid>
-      <description>&lt;p&gt;Very important concept for training models with private data without uploading the user&#39;s private data into
-the cloud.&lt;/p&gt;</description>
-    </item>
     
     <item>
       <title>Tensorflow: Data and Deployment Specialization at Coursera</title>
