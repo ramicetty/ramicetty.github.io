@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Pipelines on Pallavi Ramicetty</title>
-    <link>https://pallaviramicetty.github.io/tags/data-pipelines/</link>
+    <link>https://rspallavi.github.io/tags/data-pipelines/</link>
     <description>Recent content in Data Pipelines on Pallavi Ramicetty</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Pallavi Ramicetty - All rights reserved</copyright>
     <lastBuildDate>Mon, 30 Mar 2020 05:28:17 +0530</lastBuildDate>
     
-	<atom:link href="https://pallaviramicetty.github.io/tags/data-pipelines/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://rspallavi.github.io/tags/data-pipelines/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>3 - Data Pipelines With Tensorflow Data Services</title>
-      <link>https://pallaviramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/</link>
+      <link>https://rspallavi.github.io/blog/data-pipelines-with-tensorflow-data-services/</link>
       <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
       
-      <guid>https://pallaviramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/</guid>
+      <guid>https://rspallavi.github.io/blog/data-pipelines-with-tensorflow-data-services/</guid>
       <description>&lt;p&gt;Data powers all of our machine learning models. TensorFlow Data Services makes managing data
-much easier. As developers, one of the things that we&#39;ve discovered when we are building models is that
+much easier. As developers, one of the things that we&amp;rsquo;ve discovered when we are building models is that
 we often have to write far more lines of code to get our data and to slice our data and to manage our data
 to be able to feed it for training, then we write code for the actual training itself.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Tensorflow: Data and Deployment Specialization at Coursera</title>
-      <link>https://pallaviramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
+      <link>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
       <pubDate>Sat, 28 Mar 2020 04:15:10 +0530</pubDate>
       
-      <guid>https://pallaviramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
+      <guid>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
       <description>&lt;p&gt;Maybe we have trained a model in Jupyter Notebook or in our system, but how do we take that
-model and have it be running 24/7, have it serve actual user queries, and create value? This course will
+model and have it be running &lt;sup&gt;24&lt;/sup&gt;&amp;frasl;&lt;sub&gt;7&lt;/sub&gt;, have it serve actual user queries, and create value? This course will
 teach us how to do all that using TensorFlow.&lt;/p&gt;</description>
     </item>
     

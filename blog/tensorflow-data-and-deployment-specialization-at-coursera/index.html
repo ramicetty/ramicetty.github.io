@@ -2,7 +2,7 @@
 <html lang="en-us"><head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="generator" content="Hugo 0.62.0" />
+	<meta name="generator" content="Hugo 0.58.2" />
 	
 	<title>Tensorflow: Data and Deployment Specialization at Coursera | Pallavi Ramicetty</title>
 	
@@ -11,15 +11,15 @@
 	<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Tensorflow: Data and Deployment Specialization at Coursera"/>
 <meta name="twitter:description" content="Maybe we have trained a model in Jupyter Notebook or in our system, but how do we take that
-model and have it be running 24/7, have it serve actual user queries, and create value? This course will
+model and have it be running 24&frasl;7, have it serve actual user queries, and create value? This course will
 teach us how to do all that using TensorFlow."/>
 
 	<meta property="og:title" content="Tensorflow: Data and Deployment Specialization at Coursera" />
 <meta property="og:description" content="Maybe we have trained a model in Jupyter Notebook or in our system, but how do we take that
-model and have it be running 24/7, have it serve actual user queries, and create value? This course will
+model and have it be running 24&frasl;7, have it serve actual user queries, and create value? This course will
 teach us how to do all that using TensorFlow." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://pallaviramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/" />
+<meta property="og:url" content="https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/" />
 <meta property="article:published_time" content="2020-03-28T04:15:10+05:30" />
 <meta property="article:modified_time" content="2020-03-28T04:15:10+05:30" />
 
@@ -72,19 +72,19 @@ teach us how to do all that using TensorFlow." />
     <p>Share</p>
     <ul>
         <li class="ml-1 mr-1">
-        <a target="_blank" href="https://twitter.com/intent/tweet?text=Tensorflow%3a%20Data%20and%20Deployment%20Specialization%20at%20Coursera&url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2ftensorflow-data-and-deployment-specialization-at-coursera%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
+        <a target="_blank" href="https://twitter.com/intent/tweet?text=Tensorflow%3a%20Data%20and%20Deployment%20Specialization%20at%20Coursera&url=https%3a%2f%2frspallavi.github.io%2fblog%2ftensorflow-data-and-deployment-specialization-at-coursera%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
         <i class="fab fa-twitter"></i>
         </a>
         </li>
         
         <li class="ml-1 mr-1">
-        <a target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2ftensorflow-data-and-deployment-specialization-at-coursera%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+        <a target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2frspallavi.github.io%2fblog%2ftensorflow-data-and-deployment-specialization-at-coursera%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
         <i class="fab fa-facebook-f"></i>
         </a>
         </li>
 
         <li class="ml-1 mr-1">
-        <a target="_blank" href="https://www.xing.com/spi/shares/new?url=https%3a%2f%2fpallaviramicetty.github.io%2fblog%2ftensorflow-data-and-deployment-specialization-at-coursera%2f" onclick="window.open(this.href, 'xing-share', 'width=550,height=435');return false;">
+        <a target="_blank" href="https://www.xing.com/spi/shares/new?url=https%3a%2f%2frspallavi.github.io%2fblog%2ftensorflow-data-and-deployment-specialization-at-coursera%2f" onclick="window.open(this.href, 'xing-share', 'width=550,height=435');return false;">
         <i class="fab fa-xing"></i>
         </a>
         </li>        
@@ -117,43 +117,56 @@ teach us how to do all that using TensorFlow." />
                     
                     <div class="article-post">
                         <p>Maybe we have trained a model in Jupyter Notebook or in our system, but how do we take that
-model and have it be running 24/7, have it serve actual user queries, and create value? This course will
+model and have it be running <sup>24</sup>&frasl;<sub>7</sub>, have it serve actual user queries, and create value? This course will
 teach us how to do all that using TensorFlow.</p>
+
 <p>We will be taking a look at training/inference models at the
 browser using javascript and even be able to run them on our phone by optimizing models using
 TensorFlow Lite. Also, we will be taking a look at data pipelines on ETL (Extract, Transform and Load) since
 data is variety (Categorical, Numerical and some time embedding required) and volume (ML models
 demand large datasets). Advanced and very important concept (Federated Learning) for training models
-with the user's private data (only knowledge out of data from the user’s device - client) without
-compromising the privacy of the user’s data. Centralized servers can't reverse engineering to find an
+with the user&rsquo;s private data (only knowledge out of data from the user’s device - client) without
+compromising the privacy of the user’s data. Centralized servers can&rsquo;t reverse engineering to find an
 individual (client) private data.</p>
-<h2 id="1---browser-based-models-with-tensorflowjs">1 - Browser-based Models with TensorFlow.js</h2>
+
+<h2 id="1-browser-based-models-with-tensorflow-js">1 - Browser-based Models with TensorFlow.js</h2>
+
 <p>One of the existing things about JS is that it allows us to do neural network training and inference right
 there in the web browser. So, it’s really cool that a user can upload a picture to a web browser or grab an
 image from a webcam and then have a neural network do training or inference right in the web browser
-without needing to send that image up to the cloud to be processed by a server.<br>
+without needing to send that image up to the cloud to be processed by a server.<br />
 For more info kindly go through this <a href="../browser-based-models-with-tensorflow-js">blog</a></p>
-<h2 id="2---device-based-models-with-tensorflow-lite">2 - Device-based Models with TensorFlow Lite</h2>
-<p>We've seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there's
-something magical to getting these algorithms. Maybe a model that we've trained to run in your hand, on
+
+<h2 id="2-device-based-models-with-tensorflow-lite">2 - Device-based Models with TensorFlow Lite</h2>
+
+<p>We&rsquo;ve seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there&rsquo;s
+something magical to getting these algorithms. Maybe a model that we&rsquo;ve trained to run in your hand, on
 our smartphone or on a lightweight embedded processor like, an Arduino Raspberry Pi. TensorFlow Lite, an
-exciting technology that allows us to put our models directly and literally into people's hands.<br>
+exciting technology that allows us to put our models directly and literally into people&rsquo;s hands.<br />
 For more info kindly go through this <a href="../device-based-models-with-tensorflow-lite">blog</a></p>
-<h2 id="3---data-pipelines-with-tensorflow-data-services">3 - Data Pipelines with TensorFlow Data Services</h2>
+
+<h2 id="3-data-pipelines-with-tensorflow-data-services">3 - Data Pipelines with TensorFlow Data Services</h2>
+
 <p>Data powers all of our machine learning models. TensorFlow Data Services makes managing data
-much easier. As developers, one of the things that we've discovered when we are building models is that
+much easier. As developers, one of the things that we&rsquo;ve discovered when we are building models is that
 we often have to write far more lines of code to get our data and to slice our data and to manage our data
-to be able to feed it for training, then we write code for the actual training itself. Here, we'll learn about
+to be able to feed it for training, then we write code for the actual training itself. Here, we&rsquo;ll learn about
 how to quickly load and use existing datasets, how to input datasets from outside into the TFRecord
-format, and how to build efficient data pipelines and optimizations. Finally, we'll learn how to polish and
+format, and how to build efficient data pipelines and optimizations. Finally, we&rsquo;ll learn how to polish and
 maybe share our own datasets with others using this framework.</p>
+
 <p>For more info kindly go through this <a href="../data-pipelines-with-tensorflow-data-services">blog</a></p>
-<h2 id="4---federated-learning">4 - Federated Learning</h2>
-<p>Very important concept for training models with private data without uploading the user's private data into
+
+<h2 id="4-federated-learning">4 - Federated Learning</h2>
+
+<p>Very important concept for training models with private data without uploading the user&rsquo;s private data into
 the cloud.</p>
+
 <p>For more info kindly go through this <a href="../federated-learning">blog</a></p>
+
 <h2 id="my-certification">My Certification</h2>
-<p><img src="pallavi-ramicetty-certification.png" alt="pallavi-ramicetty-certification.png"></p>
+
+<p><img src="pallavi-ramicetty-certification.png" alt="pallavi-ramicetty-certification.png" /></p>
                     </div>
                     
                     
@@ -195,10 +208,10 @@ the cloud.</p>
                     
                     <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
                     
-                        <a class="d-block col-md-6" href="https://pallaviramicetty.github.io/blog/browser-based-models-with-tensorflow-js/"> &laquo; 1 - Browser Based Models With Tensorflow.js</a>
+                        <a class="d-block col-md-6" href="https://rspallavi.github.io/blog/browser-based-models-with-tensorflow-js/"> &laquo; 1 - Browser Based Models With Tensorflow.js</a>
                     
                     
-                        <a class="d-block col-md-6 text-lg-right" href="https://pallaviramicetty.github.io/blog/how-to-speak-by-patrick-winston/">How To Speak by Patrick Winston &raquo;</a>
+                        <a class="d-block col-md-6 text-lg-right" href="https://rspallavi.github.io/blog/how-to-speak-by-patrick-winston/">How To Speak by Patrick Winston &raquo;</a>
                     
                     <div class="clearfix"></div>
                     </div>
