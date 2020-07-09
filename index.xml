@@ -2,41 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pallavi Ramicetty</title>
-    <link>https://rspallavi.github.io/</link>
+    <link>https://ramicetty.github.io/</link>
     <description>Recent content on Pallavi Ramicetty</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Pallavi Ramicetty - All rights reserved</copyright>
     <lastBuildDate>Sat, 27 Jun 2020 06:49:05 +0530</lastBuildDate>
     
-	<atom:link href="https://rspallavi.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ramicetty.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Pulling Google Cloud Monitoring time-series data using python</title>
-      <link>https://rspallavi.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/</link>
+      <link>https://ramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/</link>
       <pubDate>Sat, 27 Jun 2020 06:49:05 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/</guid>
+      <guid>https://ramicetty.github.io/blog/pulling-google-cloud-monitoring-time-series-data-using-python/</guid>
       <description>&lt;p&gt;Mostly we prefer to use cloud platforms for our products/applications, because of security, availability, maintenance, scalability, and cost-effectiveness. Also they provides monitoring tools to know about application performance. These tools help us to understand CPU load, memory, disk, latency,  throughput, and many more of a single instance or cluster.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>4 - Federated Learning</title>
-      <link>https://rspallavi.github.io/blog/federated-learning/</link>
+      <link>https://ramicetty.github.io/blog/federated-learning/</link>
       <pubDate>Mon, 30 Mar 2020 07:03:48 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/federated-learning/</guid>
+      <guid>https://ramicetty.github.io/blog/federated-learning/</guid>
       <description>&lt;p&gt;Very important concept for training models with private data without uploading the user&amp;rsquo;s private data into
 the cloud.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>3 - Data Pipelines With Tensorflow Data Services</title>
-      <link>https://rspallavi.github.io/blog/data-pipelines-with-tensorflow-data-services/</link>
+      <link>https://ramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/</link>
       <pubDate>Mon, 30 Mar 2020 05:28:17 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/data-pipelines-with-tensorflow-data-services/</guid>
+      <guid>https://ramicetty.github.io/blog/data-pipelines-with-tensorflow-data-services/</guid>
       <description>&lt;p&gt;Data powers all of our machine learning models. TensorFlow Data Services makes managing data
 much easier. As developers, one of the things that we&amp;rsquo;ve discovered when we are building models is that
 we often have to write far more lines of code to get our data and to slice our data and to manage our data
@@ -45,10 +45,10 @@ to be able to feed it for training, then we write code for the actual training i
     
     <item>
       <title>2 - Device Based Models With Tensorflow Lite</title>
-      <link>https://rspallavi.github.io/blog/device-based-models-with-tensorflow-lite/</link>
+      <link>https://ramicetty.github.io/blog/device-based-models-with-tensorflow-lite/</link>
       <pubDate>Sun, 29 Mar 2020 06:30:08 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/device-based-models-with-tensorflow-lite/</guid>
+      <guid>https://ramicetty.github.io/blog/device-based-models-with-tensorflow-lite/</guid>
       <description>&lt;p&gt;We&amp;rsquo;ve seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there&amp;rsquo;s
 something magical to getting these algorithms. Maybe a model that we&amp;rsquo;ve trained to run in your hand, on
 our smartphone or on a lightweight embedded processor like, an Arduino Raspberry Pi. TensorFlow Lite, an
@@ -57,10 +57,10 @@ exciting technology that allows us to put our models directly and literally into
     
     <item>
       <title>1 - Browser Based Models With Tensorflow.js</title>
-      <link>https://rspallavi.github.io/blog/browser-based-models-with-tensorflow-js/</link>
+      <link>https://ramicetty.github.io/blog/browser-based-models-with-tensorflow-js/</link>
       <pubDate>Sun, 29 Mar 2020 05:10:32 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/browser-based-models-with-tensorflow-js/</guid>
+      <guid>https://ramicetty.github.io/blog/browser-based-models-with-tensorflow-js/</guid>
       <description>&lt;p&gt;One of the existing things about JS is that it allows us to do neural network training and inference right
 there in the web browser. So, it’s really cool that a user can upload a picture to a web browser or grab an
 image from a webcam and then have a neural network do training or inference right in the web browser
@@ -69,10 +69,10 @@ without needing to send that image up to the cloud to be processed by a server.&
     
     <item>
       <title>Tensorflow: Data and Deployment Specialization at Coursera</title>
-      <link>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
+      <link>https://ramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
       <pubDate>Sat, 28 Mar 2020 04:15:10 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
+      <guid>https://ramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
       <description>&lt;p&gt;Maybe we have trained a model in Jupyter Notebook or in our system, but how do we take that
 model and have it be running &lt;sup&gt;24&lt;/sup&gt;&amp;frasl;&lt;sub&gt;7&lt;/sub&gt;, have it serve actual user queries, and create value? This course will
 teach us how to do all that using TensorFlow.&lt;/p&gt;</description>
@@ -80,19 +80,19 @@ teach us how to do all that using TensorFlow.&lt;/p&gt;</description>
     
     <item>
       <title>How To Speak by Patrick Winston</title>
-      <link>https://rspallavi.github.io/blog/how-to-speak-by-patrick-winston/</link>
+      <link>https://ramicetty.github.io/blog/how-to-speak-by-patrick-winston/</link>
       <pubDate>Thu, 16 Jan 2020 09:17:14 +0200</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/how-to-speak-by-patrick-winston/</guid>
+      <guid>https://ramicetty.github.io/blog/how-to-speak-by-patrick-winston/</guid>
       <description>Patrick Winston :: He was AI professor at MIT. He had been sharing his own style and heuristics on topic How To Speak to MIT students every year.</description>
     </item>
     
     <item>
       <title>Imprint</title>
-      <link>https://rspallavi.github.io/static/imprint/</link>
+      <link>https://ramicetty.github.io/static/imprint/</link>
       <pubDate>Sun, 07 Oct 2018 11:12:00 +0200</pubDate>
       
-      <guid>https://rspallavi.github.io/static/imprint/</guid>
+      <guid>https://ramicetty.github.io/static/imprint/</guid>
       <description>Imprint Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper libero quis dictum dapibus. Nulla egestas vitae augue eu rutrum. Duis ullamcorper dictum ipsum.</description>
     </item>
     

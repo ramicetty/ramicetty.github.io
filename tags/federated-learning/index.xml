@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Federated Learning on Pallavi Ramicetty</title>
-    <link>https://rspallavi.github.io/tags/federated-learning/</link>
-    <description>Recent content in Federated Learning on Pallavi Ramicetty</description>
+    <title>federated learning on Pallavi Ramicetty</title>
+    <link>https://ramicetty.github.io/tags/federated-learning/</link>
+    <description>Recent content in federated learning on Pallavi Ramicetty</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Pallavi Ramicetty - All rights reserved</copyright>
     <lastBuildDate>Mon, 30 Mar 2020 07:03:48 +0530</lastBuildDate>
     
-	<atom:link href="https://rspallavi.github.io/tags/federated-learning/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ramicetty.github.io/tags/federated-learning/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>4 - Federated Learning</title>
-      <link>https://rspallavi.github.io/blog/federated-learning/</link>
+      <link>https://ramicetty.github.io/blog/federated-learning/</link>
       <pubDate>Mon, 30 Mar 2020 07:03:48 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/federated-learning/</guid>
+      <guid>https://ramicetty.github.io/blog/federated-learning/</guid>
       <description>&lt;p&gt;Very important concept for training models with private data without uploading the user&amp;rsquo;s private data into
 the cloud.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Tensorflow: Data and Deployment Specialization at Coursera</title>
-      <link>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
+      <link>https://ramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
       <pubDate>Sat, 28 Mar 2020 04:15:10 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
+      <guid>https://ramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
       <description>&lt;p&gt;Maybe we have trained a model in Jupyter Notebook or in our system, but how do we take that
 model and have it be running &lt;sup&gt;24&lt;/sup&gt;&amp;frasl;&lt;sub&gt;7&lt;/sub&gt;, have it serve actual user queries, and create value? This course will
 teach us how to do all that using TensorFlow.&lt;/p&gt;</description>

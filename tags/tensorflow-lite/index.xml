@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tensorflow Lite on Pallavi Ramicetty</title>
-    <link>https://rspallavi.github.io/tags/tensorflow-lite/</link>
+    <link>https://ramicetty.github.io/tags/tensorflow-lite/</link>
     <description>Recent content in Tensorflow Lite on Pallavi Ramicetty</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Pallavi Ramicetty - All rights reserved</copyright>
     <lastBuildDate>Sun, 29 Mar 2020 06:30:08 +0530</lastBuildDate>
     
-	<atom:link href="https://rspallavi.github.io/tags/tensorflow-lite/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ramicetty.github.io/tags/tensorflow-lite/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>2 - Device Based Models With Tensorflow Lite</title>
-      <link>https://rspallavi.github.io/blog/device-based-models-with-tensorflow-lite/</link>
+      <link>https://ramicetty.github.io/blog/device-based-models-with-tensorflow-lite/</link>
       <pubDate>Sun, 29 Mar 2020 06:30:08 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/device-based-models-with-tensorflow-lite/</guid>
+      <guid>https://ramicetty.github.io/blog/device-based-models-with-tensorflow-lite/</guid>
       <description>&lt;p&gt;We&amp;rsquo;ve seen a lot of deep building algorithms run maybe on our system and on the Cloud, but there&amp;rsquo;s
 something magical to getting these algorithms. Maybe a model that we&amp;rsquo;ve trained to run in your hand, on
 our smartphone or on a lightweight embedded processor like, an Arduino Raspberry Pi. TensorFlow Lite, an
@@ -26,10 +26,10 @@ exciting technology that allows us to put our models directly and literally into
     
     <item>
       <title>Tensorflow: Data and Deployment Specialization at Coursera</title>
-      <link>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
+      <link>https://ramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</link>
       <pubDate>Sat, 28 Mar 2020 04:15:10 +0530</pubDate>
       
-      <guid>https://rspallavi.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
+      <guid>https://ramicetty.github.io/blog/tensorflow-data-and-deployment-specialization-at-coursera/</guid>
       <description>&lt;p&gt;Maybe we have trained a model in Jupyter Notebook or in our system, but how do we take that
 model and have it be running &lt;sup&gt;24&lt;/sup&gt;&amp;frasl;&lt;sub&gt;7&lt;/sub&gt;, have it serve actual user queries, and create value? This course will
 teach us how to do all that using TensorFlow.&lt;/p&gt;</description>
